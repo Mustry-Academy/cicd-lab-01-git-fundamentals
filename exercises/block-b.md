@@ -20,12 +20,16 @@ You should leave this block able to:
 ## Pre-flight
 
 ```bash
-git fetch --tags
-git checkout block-b-start
+git switch main
+git status        # should be clean
 chmod +x scripts/seed-messy-state.sh
 ```
 
-Confirm `main` is clean (`git status` should be empty) and the seed script is available.
+Confirm `main` is clean and the seed script is available. You'll reset back to this starting commit a few times, so record it now as a stable anchor:
+
+```bash
+git rev-parse --short HEAD    # note this SHA — the instructions call it BASE
+```
 
 ## I do (20 min)
 
@@ -43,10 +47,10 @@ Live-coded demo. Follow along with your eyes, not your keyboard:
 
 Follow along on your own clone:
 
-1. `git switch -c we-do-greeting-polish` from `block-b-start`.
+1. `git switch -c we-do-greeting-polish` from `main`.
 2. `scripts/seed-messy-state.sh` — confirm with `git status` that you have a known dirty tree.
 3. `git add -p` — stage **one** logical change, commit it. Repeat twice more, so you have three small commits.
-4. `git log --graph --decorate --oneline -5` — confirm your three commits sit on top of `block-b-start`.
+4. `git log --graph --decorate --oneline -5` — confirm your three commits sit on top of `BASE`.
 
 You don't need to do the merge/rebase steps here — you'll do those in the solo exercise.
 
@@ -56,7 +60,7 @@ Solo. Open a scratch terminal alongside the instructions.
 
 ### Part 1 — Three clean commits
 
-1. Reset to a clean baseline: `git checkout block-b-start && git switch -c feature/greeting-tweaks`.
+1. Reset to a clean baseline: `git switch main && git reset --hard BASE && git switch -c feature/greeting-tweaks`.
 2. Run `scripts/seed-messy-state.sh`. Confirm `git status` shows three changed files.
 3. Use `git add -p` to produce **three separate commits**, each containing **one** of the three changes. Write a sensible message for each — imagine the reviewer needs to skim them in 30 seconds.
 
@@ -68,16 +72,16 @@ Solo. Open a scratch terminal alongside the instructions.
 5. Cherry-pick all three commits from `feature/greeting-tweaks` onto this new branch: `git cherry-pick feature/greeting-tweaks~2..feature/greeting-tweaks`.
 6. Now create a small unrelated commit directly on `main` (edit `sample-app/README.md`, commit it) — this prevents fast-forwards.
 7. Merge `feature/greeting-tweaks` into `main` with `git merge feature/greeting-tweaks` (note: since `main` has moved, this *cannot* fast-forward — Git creates a merge commit).
-8. Reset `main` back to `block-b-start` plus your README commit: `git reset --hard <SHA-of-README-commit>`.
+8. Reset `main` back to `BASE` plus your README commit: `git reset --hard <SHA-of-README-commit>`.
 9. Now merge the *other* branch: `git merge --no-ff feature/greeting-tweaks-noff -m "Merge feature/greeting-tweaks-noff into main"`.
 10. Run `git log --graph --decorate --oneline --all`. **Sketch the graph in `NOTES.local.md`.** What's the same? What's different? Where does each style help or hurt?
 
 ### Part 3 — Linear rebase
 
-11. Reset once more: `git checkout main && git reset --hard block-b-start`. Re-apply your README commit on top.
+11. Reset once more: `git switch main && git reset --hard BASE`. Re-apply your README commit on top.
 12. `git switch feature/greeting-tweaks && git rebase main`. The three feature commits should now sit on top of the new `main` tip, with no merge commit.
 13. `git switch main && git merge feature/greeting-tweaks` — this *will* fast-forward. The history is linear.
-14. Final state of `git log --graph --decorate --oneline --all` should match `block-b-end`.
+14. Final state of `git log --graph --decorate --oneline --all` should match the reference walk-through in [`instructor-notes/block-b-key.md`](../instructor-notes/block-b-key.md).
 
 ### Sanity check
 

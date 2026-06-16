@@ -4,7 +4,7 @@
 
 ## Pre-requisite: the seeded history
 
-`block-a-start` should ship with at least the following commit history on `main`. SHAs will differ per-build because Git timestamps are per-author/date, so the key works by **commit messages and `-S` queries**, not literal SHAs.
+`main` should ship with at least the following commit history. SHAs will differ per-build because Git timestamps are per-author/date, so the key works by **commit messages and `-S` queries**, not literal SHAs.
 
 Recommended seed history (oldest → newest):
 
@@ -59,7 +59,7 @@ git ls-tree -r --name-only HEAD~1
 # (plus any lab-level files like README.md, .gitignore, etc.)
 ```
 
-The exact file count depends on what else is committed at the lab level by `block-a-start`. The `verify-block-a.sh` script handles this.
+The exact file count depends on what else is committed at the lab level on `main`. The `verify-block-a.sh` script handles this.
 
 ### 4. Make a focused commit
 

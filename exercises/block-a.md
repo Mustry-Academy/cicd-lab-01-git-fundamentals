@@ -19,11 +19,11 @@ You should leave this block able to:
 ## Pre-flight
 
 ```bash
-git fetch --tags
-git checkout block-a-start
+git switch main
+git status        # should be clean
 ```
 
-You should now see a `sample-app/` directory with several commits already in its history. Run `git log --oneline` and confirm you see at least five commits.
+You should see a `sample-app/` directory with several commits already in its history. Run `git log --oneline` and confirm you see at least five commits.
 
 If you'd like to read ahead: [`docs/why-version-control.md`](../docs/why-version-control.md) and [`docs/git-object-model.md`](../docs/git-object-model.md).
 
@@ -66,13 +66,13 @@ Following along on your own clone:
 
 ## You do (30 min)
 
-Solo spelunking on the existing history at `block-a-start`. Open a scratch notebook — write down each answer.
+Solo spelunking on the existing history on `main`. Open a scratch notebook — write down each answer.
 
 1. **Blob SHA at `HEAD~2`.** Find the blob SHA that `sample-app/app.py` had at `HEAD~2`. Use `git ls-tree HEAD~2 sample-app/app.py`. Print the blob with `git cat-file -p <blob-SHA>` — does it match what `git show HEAD~2:sample-app/app.py` shows?
 2. **Which commit introduced `greet()`?** Use `git log -S "def greet" --oneline -- sample-app/app.py`. What's the SHA? Read the full commit message with `git show --no-patch <SHA>`.
 3. **Tree shape at `HEAD~1`.** Using *only* `git cat-file` and `git ls-tree`, list every file tracked at `HEAD~1`. How many files total? Compare against `git ls-tree -r --name-only HEAD~1`.
 4. **Make a focused commit.** Add your name to `sample-app/README.md` as a "lab participant" line. Commit it with a clear message. Then `git cat-file -p HEAD` and confirm that only the `README.md` blob entry changed (not the `app.py` blob, not the `tests/` tree).
-5. **Sanity check.** Run `scripts/verify-block-a.sh` — it should print a green ✅ if your block-a-end state is correct.
+5. **Sanity check.** Run `scripts/verify-block-a.sh` — it should print a green ✅ if your Block A solo work is correct.
 
 Capture your answers in `NOTES.local.md` (gitignored). Don't worry about wording — just the SHAs and the commit messages.
 

@@ -20,7 +20,7 @@ After `git add -p` and three commits, the expected log on `feature/greeting-twea
 * abc1234 (HEAD -> feature/greeting-tweaks) test: cover empty-string input
 * def5678 docs: document how to run the sample app
 * 9abcdef refactor(app): add docstring to greet()
-* … block-b-start ancestry below this point
+* … BASE ancestry below this point
 ```
 
 The exact commit ordering depends on the student. What matters is:
@@ -45,10 +45,10 @@ After Part 2, both merge styles should be visible in the reflog. The expected gr
 | * refactor(app): add docstring to greet()
 * | main: add README note before merge
 |/
-* block-b-start
+* BASE
 ```
 
-**`--no-ff` (step 9):** after the reset, `main` is at `block-b-start` + the README commit. The `--no-ff` merge forces a merge commit even if FF were possible:
+**`--no-ff` (step 9):** after the reset, `main` is at `BASE` + the README commit. The `--no-ff` merge forces a merge commit even if FF were possible:
 
 ```
 *   Merge feature/greeting-tweaks-noff into main
@@ -58,7 +58,7 @@ After Part 2, both merge styles should be visible in the reflog. The expected gr
 | * refactor(app): add docstring to greet()
 * | main: add README note before merge
 |/
-* block-b-start
+* BASE
 ```
 
 **Key teaching point:** the graphs *look* similar because in both cases `main` has diverged. The distinction that matters is what would happen if `main` *hadn't* moved:
@@ -66,7 +66,7 @@ After Part 2, both merge styles should be visible in the reflog. The expected gr
 - Plain `merge` would fast-forward (no merge commit, linear history).
 - `--no-ff` would still force a merge commit (preserves the "this was a branch" signal).
 
-Demo this explicitly in debrief if students didn't catch it: reset to `block-b-start`, branch, commit, then merge each way *without* moving `main`.
+Demo this explicitly in debrief if students didn't catch it: reset to `BASE`, branch, commit, then merge each way *without* moving `main`.
 
 ## Part 3 — linear rebase
 
@@ -77,7 +77,7 @@ After Part 3, `git log --graph --decorate --oneline --all` should show a **linea
 * docs: document how to run the sample app
 * refactor(app): add docstring to greet()
 * main: add README note before merge
-* (block-b-start) <earlier commits>
+* (BASE) <earlier commits>
 ```
 
 No merge commit. No diverging branch. `main` and `feature/greeting-tweaks` point to the same commit.

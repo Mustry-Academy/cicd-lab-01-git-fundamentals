@@ -2,7 +2,7 @@
 # Sanity-check the Block A solo exercise.
 #
 # Verifies (best-effort):
-#   - The lab tree is at block-a-end or beyond, with no uncommitted changes.
+#   - The Block A solo work is complete, with no uncommitted changes.
 #   - sample-app/README.md contains a "lab participant" line added in You-do step 4.
 #   - HEAD's commit touched only sample-app/README.md (no incidental changes).
 #
@@ -44,7 +44,7 @@ fi
 
 if [ $fail -eq 0 ]; then
   echo
-  echo "All checks passed. Tag this state as block-a-end if you're an instructor."
+  echo "All checks passed."
   exit 0
 else
   echo

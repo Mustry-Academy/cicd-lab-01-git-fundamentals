@@ -31,32 +31,11 @@ If you'd rather skip the local Python setup, the lab also runs in [GitHub Codesp
 | A | Why version control matters; Git's object model demystified | [`exercises/block-a.md`](./exercises/block-a.md) |
 | B | Everyday workflows: add, commit, branch, merge, rebase | [`exercises/block-b.md`](./exercises/block-b.md) |
 
-## Checkpoints
-
-This repo uses **Git tags** as immutable checkpoints. If you get lost, you can always reset:
-
-```bash
-git fetch --tags
-git checkout block-a-start    # back to the start of Block A
-git checkout block-a-end      # to see the instructor's reference solution
-git checkout block-b-start
-git checkout block-b-end
-```
-
-| Tag | What it represents |
-|---|---|
-| `block-a-start` | Starting point for Block A — `sample-app/` with a seeded multi-commit history |
-| `block-a-end` | Reference solution after Block A |
-| `block-b-start` | Starting point for Block B — clean `main` with the seed script available |
-| `block-b-end` | Reference solution after Block B: three-commit feature branch rebased into `main`, plus a `--no-ff` demonstration branch |
-
 ## Repo layout
 
 ```
 cicd-lab-01-git-fundamentals/
 ├── README.md
-├── PLAN.md                       ← design doc for this lab
-├── .devcontainer/                ← Codespaces fallback config
 ├── exercises/
 │   ├── block-a.md
 │   └── block-b.md
