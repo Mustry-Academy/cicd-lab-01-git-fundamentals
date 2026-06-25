@@ -1,15 +1,14 @@
 # Lab 01 — Git Fundamentals
 
-Day 1, Blocks A and B of the [CI/CD for Ignition Masterclass](https://github.com/mustry-academy/cicd-masterclass).
+Day 1 of the [CI/CD for Ignition Masterclass](https://github.com/mustry-academy/cicd-masterclass).
 
 > Build a working mental model of Git, and learn to operate confidently with branches, commits, merges, and rebases.
 
-This is the first lab in the course. We deliberately stay out of Ignition territory for now — the only subject of our Git exercises is a tiny generic Python app in [`sample-app/`](./sample-app/). Ignition-specific deployments arrive in Lab 04.
+This is the first lab in the course. We deliberately stay out of Ignition territory for now — the only subject of our Git exercises is a tiny generic Python app in [`sample-app/`](./sample-app/). Ignition-specific deployments arrive in Lab 03.
 
 ## Prerequisites
 
 - Pass [`cicd-preflight`](https://github.com/mustry-academy/cicd-preflight)
-- Read the Day 1 brief in your welcome packet
 - Clone this repo before the live session
 
 ## Quick start
@@ -22,14 +21,14 @@ pip install -r sample-app/requirements.txt
 pytest sample-app/tests
 ```
 
-If you'd rather skip the local Python setup, the lab also runs in [GitHub Codespaces](https://github.com/features/codespaces) — see [`.devcontainer/devcontainer.json`](./.devcontainer/devcontainer.json).
-
 ## Lab structure
 
-| Block | Topic | Exercise |
-|---|---|---|
-| A | Why version control matters; Git's object model demystified | [`exercises/block-a.md`](./exercises/block-a.md) |
-| B | Everyday workflows: add, commit, branch, merge, rebase | [`exercises/block-b.md`](./exercises/block-b.md) |
+One continuous ~3-hour lab that interleaves Git's object model with everyday workflows, so the model becomes the lens for every command you run. The full walk-through lives in [`exercises/lab.md`](./exercises/lab.md):
+
+- Why version control matters
+- The object model (commit/tree/blob) — hands-on the workflow
+- Everyday workflows: `add -p`, `switch`, branch, merge (fast-forward vs `--no-ff`), rebase, and recovery
+- A solo spelunk-then-build exercise, plus optional stretch challenges
 
 ## Repo layout
 
@@ -37,17 +36,15 @@ If you'd rather skip the local Python setup, the lab also runs in [GitHub Codesp
 cicd-lab-01-git-fundamentals/
 ├── README.md
 ├── exercises/
-│   ├── block-a.md
-│   └── block-b.md
+│   └── lab.md
 ├── docs/                         ← reference reading
 │   ├── why-version-control.md
 │   └── git-object-model.md
-├── instructor-notes/             ← answer keys (read after solo work)
-│   ├── block-a-key.md
-│   └── block-b-key.md
+├── instructor-notes/             ← answer key (read after solo work)
+│   └── lab-key.md
 ├── scripts/
-│   ├── seed-messy-state.sh       ← deterministic dirty working tree for Block B
-│   └── verify-block-a.sh         ← sanity-check the Block A solo exercise
+│   ├── seed-messy-state.sh       ← deterministic dirty working tree for the workflow phase
+│   └── verify-lab.sh             ← sanity-check the solo focused-commit step
 └── sample-app/                   ← the tiny Python app we'll version together
     ├── app.py
     ├── requirements.txt
