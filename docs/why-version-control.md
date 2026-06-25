@@ -41,7 +41,7 @@ Ignition projects and configuration are *just files*. Vendor docs sometimes hint
 - Multiple engineers can't work on the same project in parallel without overwriting each other.
 - There's no review step before a change goes live.
 
-Putting your Ignition projects and configuration in Git solves all three problems and is the *foundation* for everything in this masterclass. We'll start versioning real Ignition projects in Lab 04. For Day 1, we use a tiny Python app so the Git mechanics aren't tangled up with Ignition file-format quirks.
+Putting your Ignition projects and configuration in Git solves all three problems and is the *foundation* for everything in this masterclass. We'll start versioning real Ignition projects in Lab 03. For Day 1, we use a tiny Python app so the Git mechanics aren't tangled up with Ignition file-format quirks.
 
 ## Further reading
 
