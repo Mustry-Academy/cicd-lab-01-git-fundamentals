@@ -4,64 +4,78 @@
 
 ## Pre-requisite: the seeded history
 
-`main` should ship with at least the following commit history. SHAs will differ per-build because Git timestamps are per-author/date, so the key works by **commit messages and `-S` queries**, not literal SHAs.
+`sample-app/app.py` should have **three** commits in its history (`git log --oneline -- sample-app/app.py`), oldest → newest:
 
-Recommended seed history (oldest → newest):
+1. **initial commit** — `app.py` is born with `greet()` and an argv-driven `__main__`.
+2. **add shout functionality** — `greet()` gains the `shout` parameter / `--shout` flag.
+3. **add farewell functionality** — `farewell()` is added alongside `greet()`.
 
-1. `chore: initial commit — empty sample-app skeleton`
-2. `feat: add greet() function in app.py`
-3. `test: cover greet() with a single pytest case`
-4. `docs: write sample-app/README.md`
-5. `feat: support custom name via argv in __main__`
-
-That gives a 5-commit history with at least two files added, one file expanded, and one feature-style commit that Phase 1 question #2 can locate via `git log -S "def greet"`.
+SHAs differ per-build because Git timestamps are per-author/date, so the key works by **commit messages and `-S` queries**, not literal SHAs. The questions are deliberately phrased against `app.py`'s own history (found via `git log -- sample-app/app.py`) rather than `HEAD~N`, so unrelated doc/lab commits stacked on top don't throw off the answers.
 
 ## Phase 1 — spelunk + focused commit
 
-### 1. Blob SHA at `HEAD~2`
+### 1. `app.py`'s own history
 
 ```bash
-git ls-tree HEAD~2 sample-app/app.py
-# Expected output (SHA will differ): 100644 blob <BLOB-SHA> sample-app/app.py
-git cat-file -p <BLOB-SHA>
-# Should print the contents of app.py *as of* HEAD~2 — at that point, the __main__ block doesn't take argv.
-git show HEAD~2:sample-app/app.py
-# Should match exactly.
+git log --oneline -- sample-app/app.py
+# Three commits, newest first:
+#   <sha> add farewell functionality to sample-app
+#   <sha> add shout functionality to the sample application
+#   <sha> initial commit
 ```
 
-Common confusion: students sometimes use `HEAD~2` thinking it means "two commits ago including HEAD." It means **the commit two before HEAD** (so HEAD~0 = HEAD, HEAD~1 = previous, HEAD~2 = two back).
+Students should pick out the **shout** commit and the **farewell** commit by message — both are reused in #4/#5 and #3.
 
 ### 2. Which commit introduced `greet()`?
 
 ```bash
 git log -S "def greet" --oneline -- sample-app/app.py
-# Should return exactly one commit: the one whose message reads
-# "feat: add greet() function in app.py"
+# Returns exactly one commit: the INITIAL commit.
 ```
 
-If the student gets more than one commit, they either:
-- Forgot to restrict to `-- sample-app/app.py`, or
-- Are sitting on a state where `def greet` has been edited later (rare in the seeded history).
+The "surprise" is that `greet()` has been there since the very first commit — it predates both `shout` and `farewell`. (The `shout` commit edits the `def greet` line but doesn't change the *count* of "def greet", so `-S` doesn't report it.) If a student gets more than one commit, they forgot the `-- sample-app/app.py` pathspec.
 
-### 3. Tree shape at `HEAD~1`
+### 3. Which commit introduced `farewell()`?
 
 ```bash
-git cat-file -p HEAD~1
-# Read the tree SHA from this output.
+git log -S "def farewell" --oneline -- sample-app/app.py
+# Returns exactly one commit: "add farewell functionality to sample-app".
+```
+
+Contrast with #2: `greet()` is original, `farewell()` is a later addition. Same tool (`-S`), two different commits — the point is that `-S` finds *content*, not position.
+
+### 4. Blob SHA before `farewell()` existed
+
+```bash
+git ls-tree <shout-SHA> sample-app/app.py
+# 100644 blob <BLOB-SHA> sample-app/app.py
+git cat-file -p <BLOB-SHA>
+# app.py as of the shout commit: greet() with shout support, but NO farewell() yet.
+git show <shout-SHA>:sample-app/app.py
+# Should match the blob byte-for-byte.
+```
+
+Confirm with the student that `farewell()` is absent here — that's the whole point of picking the commit *before* it was added.
+
+### 5. Tree shape at that commit
+
+```bash
+git cat-file -p <shout-SHA>
+# Read the tree SHA from this output, then:
 git cat-file -p <TREE-SHA>
-# Lists top-level entries — should be: sample-app (tree), and the lab-level files.
-git ls-tree -r --name-only HEAD~1
-# Recursive list — at HEAD~1 (i.e., before the final argv feature), expect:
+# Top-level entries: sample-app (tree) plus the lab-level files.
+git ls-tree -r --name-only <shout-SHA>
+# Inside sample-app/, expect exactly four files:
 #   sample-app/README.md
 #   sample-app/app.py
 #   sample-app/requirements.txt
 #   sample-app/tests/test_app.py
-# (plus any lab-level files like README.md, .gitignore, etc.)
+# (plus whatever lab-level files existed at that commit — count varies by build).
 ```
 
-The exact file count depends on what else is committed at the lab level on `main`. The `verify-lab.sh` script handles this.
+The `sample-app/` subtree is the stable part (four files). The lab-level file count depends on what else was committed at that point, so don't grade on the total.
 
-### 4. Make a focused commit
+### 6. Make a focused commit
 
 Expected diff in the new commit: exactly one hunk in `sample-app/README.md` adding a "lab participant" line.
 
@@ -82,7 +96,7 @@ git ls-tree HEAD sample-app/
 
 Common mistake: students accidentally also save unrelated file changes (e.g., they ran `pytest` and a `.pytest_cache/` got pulled in). The `.gitignore` covers `.pytest_cache/`, but if they forced an add, you'll see additional blobs. Look for `git add .` in their shell history.
 
-### 5. Sanity check
+### 7. Sanity check
 
 `scripts/verify-lab.sh` should print all-green here. It checks a clean tree, a "lab participant" line in `sample-app/README.md`, and that `HEAD` touched **only** `sample-app/README.md`. Students must run it **before** Phase 2's resets — once Phase 2 rewrites history, the "HEAD touched only README" invariant no longer holds.
 
@@ -194,25 +208,19 @@ Goal: students see that `git diff` is not a black box — it's a tree walk + blo
 
 ### 2. Conflict resolution
 
-The expected conflict:
+Both branches inserted a different line just above `message =` inside `greet()`, so the conflict lands there. During the rebase, `HEAD` is `main` (the comment) and the incoming side is the feature commit (the docstring):
 
 ```
+def greet(name: str, shout: bool = False) -> str:
 <<<<<<< HEAD
-"""Sample app for the Git fundamentals lab."""
-# CONFLICT BAIT
+    # CONFLICT BAIT — main and your feature branch both edit greet()
 =======
-"""Sample app for the Git fundamentals lab."""
-
-
-def greet(name: str) -> str:
     """Return a friendly greeting for `name`."""
-=======
->>>>>>> refactor(app): add docstring to greet()
+>>>>>>> <hash> (refactor(app): add docstring to greet())
+    message = f"Hello, {name}!"
 ```
 
-(Exact markers will depend on the conflict layout — the structure above is illustrative.)
-
-Resolution: combine the docstring change with the `# CONFLICT BAIT` line. Save, `git add sample-app/app.py`, `git rebase --continue`. The remaining two commits should apply cleanly. If a student gets stuck, `git rebase --abort` is a legitimate exit — better to bail and try again than to mash through and produce broken history.
+Resolution: keep **both** lines (delete the three `<<<<<<<` / `=======` / `>>>>>>>` markers, leave the comment and the docstring). Save, `git add sample-app/app.py`, `git rebase --continue`. If a student gets stuck, `git rebase --abort` is a legitimate exit — better to bail and try again than to mash through and produce broken history.
 
 ## Debrief crib
 

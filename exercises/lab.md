@@ -116,13 +116,21 @@ Phase 1's checkpoint commit if done out of order.
 
 ### Phase 1 — spelunk the object graph, then make a focused commit
 
-Work on the existing history on `main`. Write down each answer.
+The We-do left you on a scratch branch — first return to a clean `main`:
 
-1. **Blob SHA at `HEAD~2`.** Find the blob SHA that `sample-app/app.py` had at `HEAD~2` with `git ls-tree HEAD~2 sample-app/app.py`. Print the blob with `git cat-file -p <blob-SHA>` — does it match what `git show HEAD~2:sample-app/app.py` shows?
-2. **Which commit introduced `farewell()`?** Use `git log -S "def farewell" --oneline -- sample-app/app.py`. What's the SHA? Read the full message with `git show --no-patch <SHA>`.
-3. **Tree shape at `HEAD~1`.** Using *only* `git cat-file` and `git ls-tree`, list every file tracked at `HEAD~1`. How many total? Compare against `git ls-tree -r --name-only HEAD~1`.
-4. **Make a focused commit.** Add your name to `sample-app/README.md` as a "lab participant" line. Commit it with a clear message. Then `git cat-file -p HEAD` and confirm that only the `README.md` blob entry changed (not the `app.py` blob, not the `tests/` tree).
-5. **Sanity check.** Run `scripts/verify-lab.sh` — it should print a green ✅ if your focused commit is correct. Run this **now**, before Phase 2.
+```bash
+git switch main
+```
+
+Now work through these against the existing history. Write down each answer.
+
+1. **`app.py`'s own history.** Run `git log --oneline -- sample-app/app.py` to see every commit that touched it. Identify the one that added **`--shout`** support and the one that added **`farewell()`** — you'll reuse both below.
+2. **Which commit introduced `greet()`?** Use `git log -S "def greet" --oneline -- sample-app/app.py`. Surprised where it lands? Read the full message with `git show --no-patch <SHA>`.
+3. **Which commit introduced `farewell()`?** Use `git log -S "def farewell" --oneline -- sample-app/app.py`. What's the SHA, and how does it differ from the commit you found in #2?
+4. **Blob SHA before `farewell()` existed.** Using the `--shout` commit from #1, read `app.py`'s blob SHA at that point with `git ls-tree <shout-SHA> sample-app/app.py`. Print it with `git cat-file -p <blob-SHA>` — confirm `farewell()` isn't there yet, and that it matches `git show <shout-SHA>:sample-app/app.py`.
+5. **Tree shape at that commit.** Using *only* `git cat-file` and `git ls-tree`, list every file tracked at the `--shout` commit. How many total? Compare against `git ls-tree -r --name-only <shout-SHA>`.
+6. **Make a focused commit.** Add your name to `sample-app/README.md` as a "lab participant" line. Commit it with a clear message. Then `git cat-file -p HEAD` and confirm that only the `README.md` blob entry changed (not the `app.py` blob, not the `tests/` tree).
+7. **Sanity check.** Run `scripts/verify-lab.sh` — it should print a green ✅ if your focused commit is correct. Run this **now**, before Phase 2.
 
 ### Phase 2 — branch, merge, and rebase
 
@@ -161,15 +169,25 @@ git rev-parse --short HEAD    # note this SHA — the instructions call it BASE
 
 **1. Diff without `git diff`.** Pick two adjacent commits in the seeded history. Using only `git cat-file` and `git ls-tree`, determine: which files exist in commit B but not A? For files in both, which blob SHAs differ? For the changed blobs, print both and identify the changed line(s) by eye. You're reconstructing what `git diff` does internally — a tree walk plus a blob comparison. Confirm with `git diff <A> <B>`.
 
-**2. Rebase through a conflict.** Re-do Part C, but first run:
+**2. Rebase through a conflict.** Re-do Part C, but first add a commit on `main` that edits the **same line** inside `greet()` that one of your feature commits did (the seed script's docstring change). Same-region edits on both branches are what *forces* a conflict:
 
 ```bash
 git switch main
-echo "# CONFLICT BAIT" >> sample-app/app.py
-git commit -am "main: add header comment to app.py"
+python3 - <<'PY'
+from pathlib import Path
+p = Path("sample-app/app.py")
+t = p.read_text()
+t = t.replace(
+    '    message = f"Hello, {name}!"',
+    '    # CONFLICT BAIT — main and your feature branch both edit greet()\n'
+    '    message = f"Hello, {name}!"',
+)
+p.write_text(t)
+PY
+git commit -am "main: add a comment inside greet()"
 ```
 
-Then `git switch feature/greeting-tweaks && git rebase main` — one of your feature commits also touched `app.py`. Git halts with a conflict on a specific commit. Open `sample-app/app.py`, resolve, `git add`, then `git rebase --continue`. Confirm linear history with `git log --graph --decorate --oneline --all`. If you'd rather bail, `git rebase --abort` is also a valid exit.
+Then `git switch feature/greeting-tweaks && git rebase main` — the feature commit that added a docstring to `greet()` touches the same spot, so Git halts with a conflict on that commit. Open `sample-app/app.py`, resolve (keep both the comment and the docstring), `git add sample-app/app.py`, then `git rebase --continue`. Confirm linear history with `git log --graph --decorate --oneline --all`. If you'd rather bail, `git rebase --abort` is also a valid exit.
 
 ## Debrief (15 min)
 
