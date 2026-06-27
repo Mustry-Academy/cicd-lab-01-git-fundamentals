@@ -13,7 +13,7 @@ Everything in a Git repository is one of four object types, all stored in `.git/
 | **commit** | A snapshot: pointer to one tree + parent commit(s) + author + message | one tree + zero-or-more parent commits |
 | **tag** | A named, immutable reference to a commit (annotated tags only) | one commit |
 
-Each object is content-addressed: its SHA-1 (or SHA-256, in newer Git) is computed from its content. Two identical files anywhere in any repo will have the same blob SHA. That's how Git deduplicates storage.
+At heart, `.git/objects` is a **key-value store**: the **key** is a hash of the content, the **value** is the content itself. `git cat-file -p <key>` prints the value back. Each object is therefore content-addressed: its SHA-1 (or SHA-256, in newer Git) is computed from its content, so two identical files anywhere in any repo will have the same blob SHA. That's how Git deduplicates storage.
 
 ## The relationships, visually
 

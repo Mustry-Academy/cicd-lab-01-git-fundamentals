@@ -408,7 +408,27 @@ body{
   </div>
 </section>
 
-<!-- 8 · MERGE (interactive) -->
+<!-- 8 · HEAD -->
+<section class="slide dark">
+  <div class="topbar">
+    <div class="on-dark brandrow"><img class="logo-img" src="logos/OriginalLight.png" alt="Mustry Solutions"></div>
+    <div class="stage on-dark">Under the hood · refs</div>
+  </div>
+
+  <div class="stage-wrap">
+    <div class="vtitle">HEAD</div>
+    <p class="lead" style="text-align:center;margin:6px auto 0;color:#c4cfde">If a branch is a pointer to a commit, <b style="color:#fff">HEAD</b> is the pointer to <b style="color:#fff">where you are</b> — usually the branch you're currently on.</p>
+    <div class="viz" id="viz-head"></div>
+  </div>
+
+  <div class="controls">
+    <span class="lead-step" id="head-step"><b>HEAD</b> = your current position. <span class="mono">git switch</span> moves it; a new commit moves HEAD <i>and</i> its branch together.</span>
+    <button class="btn" data-act="back">◀ Back</button>
+    <button class="btn primary" data-act="next">Next step ▶</button>
+  </div>
+</section>
+
+<!-- 9 · MERGE (interactive) -->
 <section class="slide dark">
   <div class="topbar">
     <div class="on-dark brandrow"><img class="logo-img" src="logos/OriginalLight.png" alt="Mustry Solutions"></div>
@@ -465,7 +485,27 @@ body{
   </div>
 </section>
 
-<!-- 11 · BASIC COMMAND VOCABULARY -->
+<!-- 11 · REMOTE -->
+<section class="slide dark">
+  <div class="topbar">
+    <div class="on-dark brandrow"><img class="logo-img" src="logos/OriginalLight.png" alt="Mustry Solutions"></div>
+    <div class="stage on-dark">Distributed · remotes</div>
+  </div>
+
+  <div class="stage-wrap">
+    <div class="vtitle">Remotes</div>
+    <p class="lead" style="text-align:center;margin:6px auto 0;color:#c4cfde">Git is <b style="color:#fff">distributed</b>: <b style="color:#fff">every clone is a full copy</b> of the history. A <b style="color:#fff">remote</b> (usually <span class="mono">origin</span>) is just another repo you sync with.</p>
+    <div class="viz" id="viz-remote"></div>
+  </div>
+
+  <div class="controls">
+    <span class="lead-step" id="remote-step"><span class="mono">clone</span> copies it down · <span class="mono">push</span> sends your commits up · <span class="mono">pull</span> brings theirs down. We use these for real in later labs.</span>
+    <button class="btn" data-act="back">◀ Back</button>
+    <button class="btn primary" data-act="next">Next step ▶</button>
+  </div>
+</section>
+
+<!-- 12 · BASIC COMMAND VOCABULARY -->
 <section class="slide">
   <div class="topbar">
     <div class="brandrow"><img class="logo-img" src="logos/OriginalDark.png" alt="Mustry Solutions"></div>
@@ -497,7 +537,7 @@ body{
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>The everyday Git toolkit</span></div>
 </section>
 
-<!-- 12 · GITIGNORE -->
+<!-- 13 · GITIGNORE -->
 <section class="slide">
   <div class="topbar">
     <div class="brandrow"><img class="logo-img" src="logos/OriginalDark.png" alt="Mustry Solutions"></div>
@@ -526,7 +566,7 @@ body{
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Open this repo's own .gitignore</span></div>
 </section>
 
-<!-- 13 · IN THE LAB (closing) -->
+<!-- 14 · IN THE LAB (closing) -->
 <section class="slide dark">
   <div class="topbar">
     <div class="on-dark brandrow"><img class="logo-img" src="logos/OriginalLight.png" alt="Mustry Solutions"></div>
@@ -549,8 +589,8 @@ body{
 </div>
 
 <div class="hud"><div class="bar" id="bar"></div></div>
-<div class="pager" id="pager">01 / 13</div>
-<div class="hint" id="hint">↑ ↓ slides · buttons step the animation</div>
+<div class="pager" id="pager">01 / 15</div>
+<div class="hint" id="hint">↑ ↓ slides · ← → step the animation</div>
 
 <script>
 /* ============ deck navigation ============ */
@@ -573,10 +613,14 @@ deck.addEventListener('scroll',()=>{requestAnimationFrame(update)});
 window.addEventListener('keydown',e=>{
   if(e.target.tagName==='BUTTON')return;
   const i=curIndex();
+  // Up/Down (and PageUp/Down) always move between slides
   if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();deck.scrollTo({top:(i+1)*window.innerHeight})}
   if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();deck.scrollTo({top:(i-1)*window.innerHeight})}
   if(e.key==='Home'){deck.scrollTo({top:0})}
   if(e.key==='End'){deck.scrollTo({top:slides.length*window.innerHeight})}
+  // Left/Right ONLY step the current slide's animation — they never change slides.
+  if(e.key==='ArrowRight'){e.preventDefault(); if(bound[i])bound[i].go(1);}
+  if(e.key==='ArrowLeft'){e.preventDefault(); if(bound[i])bound[i].go(-1);}
 });
 update();
 setTimeout(()=>{hint.style.transition='opacity .6s';hint.style.opacity='0'},5000);
@@ -635,7 +679,8 @@ function bindControls(slideEl,ctrl){
   const back=slideEl.querySelector('[data-act="back"]');
   const extra=[...slideEl.querySelectorAll('[data-act]')].filter(b=>!['next','back'].includes(b.dataset.act));
   function sync(){ if(back)back.disabled=step<=0; if(next)next.disabled=step>=ctrl.max; ctrl.render(step,{next,back,extra}); }
-  function go(d){ step=Math.max(0,Math.min(ctrl.max,step+d)); sync(); }
+  // returns true if the step actually changed (false at a boundary, so callers can fall through)
+  function go(d){ const prev=step; step=Math.max(0,Math.min(ctrl.max,step+d)); if(step!==prev){sync();return true;} return false; }
   if(next)next.addEventListener('click',()=>go(1));
   if(back)back.addEventListener('click',()=>go(-1));
   extra.forEach(b=>b.addEventListener('click',()=>{ if(ctrl.onAct)ctrl.onAct(b.dataset.act,()=>{step=Math.min(ctrl.max,step+1);sync();},{next,back,extra}); }));
@@ -808,7 +853,7 @@ function bindControls(slideEl,ctrl){
   const pNB=movingPtr(svg,'new-button',topY,true);
   const pHot=movingPtr(svg,'hotfix',botY,true);
   pMain.move(X.C); pNB.move(X.C); pHot.move(Xbot.F);
-  const lead=slides[7].querySelector('#merge-step');
+  const lead=slides[8].querySelector('#merge-step');
 
   // step definitions — cumulative visibility + pointer positions
   const steps=[
@@ -860,7 +905,7 @@ function bindControls(slideEl,ctrl){
   const mainText=lblMain.querySelector('text');
   // raise "main" higher above the line so it never collides with the rebased "feature" label when both land on F'
   mainText.setAttribute('y',topY-104);
-  const lead=slides[8].querySelector('#rebase-step');
+  const lead=slides[9].querySelector('#rebase-step');
   const steps=[
     {show:['A','B','C','AB','BC','D','CD'],main:Xd.D,feat:false,feat2:false,t:'<b>main</b> is at D. We branched <b>feature</b> earlier at C…'},
     {show:['E','F','CE','EF'],main:Xd.D,feat:true,feat2:false,t:'…and made commits <b>E</b> and <b>F</b> on it. History has diverged.'},
@@ -910,7 +955,7 @@ function bindControls(slideEl,ctrl){
   el('rect',{x:Xbot.F-150,y:tagY,width:300,height:46,rx:11,fill:'rgba(59,189,180,.12)',stroke:'var(--teal)','stroke-width':2},tag);
   el('text',{x:Xbot.F,y:tagY+24,'text-anchor':'middle','dominant-baseline':'central',fill:'#dbe6f5','font-family':'Libre Franklin','font-weight':600,'font-size':19},tag).textContent='F = "fix typo in footer"';
 
-  const lead=slides[9].querySelector('#cherry-step');
+  const lead=slides[10].querySelector('#cherry-step');
   const steps=[
     {show:['A','B','C','D','AB','BC','CD'],main:Xtop.D,feat:false,tag:false,t:'<b>main</b>: A→B→C→D — our production line.'},
     {show:['E','F','CE','EF'],main:Xtop.D,feat:true,tag:false,t:'A <b>feature</b> branch off C has commits E and F. The feature isn\'t finished…'},
@@ -932,8 +977,110 @@ function bindControls(slideEl,ctrl){
   controllers.cherry={max:steps.length-1,render:apply};
 })();
 
+/* ---------- slide 8: HEAD ---------- */
+(function(){
+  const svg=el('svg',{viewBox:'0 0 1500 720',preserveAspectRatio:'xMidYMid meet'},document.getElementById('viz-head'));
+  defsArrow(svg);
+  const r=40;
+  // a short trunk A->B->C (main), and a feature branch off B: D (lower)
+  const topY=250, botY=460;
+  const X={A:230,B:560,C:890};
+  const Xf={D:890};
+  const node={};
+  node.A=commitNode(svg,X.A,topY,'A'); node.B=commitNode(svg,X.B,topY,'B'); node.C=commitNode(svg,X.C,topY,'C');
+  node.D=commitNode(svg,Xf.D,botY,'D');
+  const e={};
+  e.AB=edge(svg,X.A,topY,X.B,topY,{arrow:true}); e.BC=edge(svg,X.B,topY,X.C,topY,{arrow:true});
+  e.BD=edge(svg,X.B,topY,Xf.D,botY,{arrow:true});
+  // branch pointers
+  const pMain=movingPtr(svg,'main',topY,false);
+  const pFeat=movingPtr(svg,'feature',botY,true);
+  pMain.move(X.C); pFeat.move(Xf.D);
+  // HEAD pointer (amber) — can jump to either line, so it gets its own builder.
+  const head=(function(){
+    const amber='#f0a85a',boxW=120,boxH=42;
+    const g=el('g',{class:'vshow'},svg);
+    g.style.transition='transform .55s cubic-bezier(.4,1.1,.4,1)';
+    const rect=el('rect',{x:-boxW/2,width:boxW,height:boxH,rx:11,fill:'rgba(240,168,90,.16)',stroke:amber,'stroke-width':2},g);
+    const txt=el('text',{x:0,'text-anchor':'middle','dominant-baseline':'central',fill:amber,'font-family':'Libre Franklin','font-weight':800,'font-size':21},g);txt.textContent='HEAD';
+    const line=el('line',{x1:0,x2:0,stroke:amber,'stroke-width':2.4,'marker-end':'url(#arrow)'},g);
+    // HEAD sits one level further from the line than the branch label (gap 158 vs 74)
+    function moveY(x,nodeY){
+      const below = nodeY===botY;
+      const boxY = below ? nodeY+r+158 : nodeY-r-158-boxH;
+      rect.setAttribute('y',boxY); txt.setAttribute('y',boxY+boxH/2+1);
+      line.setAttribute('y1', below?boxY:boxY+boxH);
+      line.setAttribute('y2', below?nodeY+r+8:nodeY-r-8);
+      g.setAttribute('transform','translate('+x+',0)');
+    }
+    return {g,moveY};
+  })();
+  const lead=slides[7].querySelector('#head-step');
+  const steps=[
+    {show:['A','B','C','AB','BC'],main:X.C,feat:false,headAt:X.C,headY:topY,t:'<b>main</b> points at C. <b>HEAD</b> points at <b>main</b> — that\'s "where you are". A commit here moves <i>both</i> forward together.'},
+    {show:['D','BD'],main:X.C,feat:true,headAt:X.C,headY:topY,t:'We branch <b>feature</b> at B and commit <b>D</b>. But HEAD is still on main — your working tree still shows C.'},
+    {show:[],main:X.C,feat:true,headAt:Xf.D,headY:botY,t:'<b>git switch feature</b> → HEAD detaches from main and re-attaches to <b>feature</b>. Now you\'re on D.'},
+    {show:[],main:X.C,feat:true,headAt:Xf.D,headY:botY,t:'HEAD is the answer to "what does the next commit attach to?" — it follows you as you <span class="mono">switch</span> between branches.'}
+  ];
+  function apply(s){
+    const onset=new Set(); for(let i=0;i<=s;i++)steps[i].show.forEach(k=>onset.add(k));
+    Object.keys(node).forEach(k=>reveal(node[k],onset.has(k)));
+    Object.keys(e).forEach(k=>reveal(e[k],onset.has(k)));
+    const st=steps[s];
+    reveal(pMain.g,true); pMain.move(st.main);
+    reveal(pFeat.g,!!st.feat); if(st.feat)pFeat.move(Xf.D);
+    reveal(head.g,true); head.moveY(st.headAt,st.headY);
+    lead.innerHTML=st.t;
+  }
+  controllers.head={max:steps.length-1,render:apply};
+})();
+
+/* ---------- slide 11: REMOTE ---------- */
+(function(){
+  const svg=el('svg',{viewBox:'0 0 1500 640',preserveAspectRatio:'xMidYMid meet'},document.getElementById('viz-remote'));
+  defsArrow(svg);
+  // two repo boxes: your machine (left) and origin (right)
+  function repo(x,title,sub,cls){
+    const g=el('g',{class:'vpop'},svg);
+    el('rect',{x:x-220,y:150,width:440,height:230,rx:18,fill:'rgba(255,255,255,.04)',stroke:cls==='remote'?'var(--peri2)':'var(--teal)','stroke-width':2.5},g);
+    el('text',{x,y:120,'text-anchor':'middle',fill:'#fff','font-family':'Libre Franklin','font-weight':800,'font-size':26},g).textContent=title;
+    el('text',{x,y:348,'text-anchor':'middle',fill:'#9fb6cf','font-family':'IBM Plex Mono','font-size':15},g).textContent=sub;
+    // three little commits inside
+    [-110,0,110].forEach((dx,i)=>{const cx=x+dx;el('circle',{cx,cy:255,r:28,fill:'transparent',stroke:cls==='remote'?'var(--peri2)':'var(--teal)','stroke-width':2.4},g);el('text',{x:cx,y:255,'text-anchor':'middle','dominant-baseline':'central',fill:'#fff','font-family':'Libre Franklin','font-weight':700,'font-size':18},g).textContent=String.fromCharCode(65+i);if(i>0)el('line',{x1:cx-110+28,y1:255,x2:cx-28,y2:255,stroke:'#fff','stroke-width':2,'marker-end':'url(#arrow)'},g);});
+    return g;
+  }
+  const Lx=440, Rx=1060;
+  const local=repo(Lx,'your machine','full clone','');
+  const remote=repo(Rx,'origin','the shared server','remote');
+  // arrows between them
+  function flow(y,dir,label,cls){
+    const g=el('g',{class:'vdraw'},svg);
+    const x1=dir>0?Lx+225:Rx-225, x2=dir>0?Rx-225:Lx+225;
+    el('line',{x1,y1:y,x2,y2:y,stroke:cls==='peri'?'var(--peri2)':'var(--teal-l)','stroke-width':3,'marker-end':'url(#arrow)'},g);
+    el('text',{x:(Lx+Rx)/2,y:y-14,'text-anchor':'middle',fill:cls==='peri'?'var(--peri2)':'var(--teal-l)','font-family':'IBM Plex Mono','font-weight':600,'font-size':17},g).textContent=label;
+    return g;
+  }
+  const fClone=flow(440,-1,'git clone  ←  copy everything down','peri');
+  const fPush=flow(510,1,'git push  →  send your commits up','teal');
+  const fPull=flow(580,-1,'git pull  ←  bring their commits down','peri');
+  const lead=slides[11].querySelector('#remote-step');
+  const steps=[
+    {show:[local],t:'Your repo on <b>your machine</b> — a complete copy of the history. You can commit, branch, and work fully <b>offline</b>.'},
+    {show:[remote],t:'A <b>remote</b> — usually called <span class="mono">origin</span> — is just another copy of the same repo, on a shared server (GitHub, GitLab…).'},
+    {show:[fClone],t:'<span class="mono">git clone</span> made your copy in the first place: it pulls down the <b>entire history</b>, not just the latest files.'},
+    {show:[fPush],t:'<span class="mono">git push</span> sends <i>your</i> new commits up to origin so teammates can get them.'},
+    {show:[fPull],t:'<span class="mono">git pull</span> brings <i>their</i> new commits down to you. We use push/pull for real in later labs.'}
+  ];
+  function apply(s){
+    const onset=new Set(); for(let i=0;i<=s;i++)steps[i].show.forEach(k=>onset.add(k));
+    [local,remote,fClone,fPush,fPull].forEach(g=>reveal(g,onset.has(g)));
+    lead.innerHTML=steps[s].t;
+  }
+  controllers.remote={max:steps.length-1,render:apply};
+})();
+
 /* ============ wire controllers to their slides + reset on entry ============ */
-const ctrlBySlide={3:'blob',4:'tree',5:'commit',6:'branch',7:'merge',8:'rebase',9:'cherry'};
+const ctrlBySlide={3:'blob',4:'tree',5:'commit',6:'branch',7:'head',8:'merge',9:'rebase',10:'cherry',11:'remote'};
 const bound={};
 for(const idx in ctrlBySlide){const name=ctrlBySlide[idx];bound[idx]=bindControls(slides[idx],controllers[name]);}
 // reset a slide's animation when you scroll onto it

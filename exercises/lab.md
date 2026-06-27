@@ -19,7 +19,7 @@ the lens for every workflow move you make.
 
 You should leave this lab able to:
 
-- Understanding the basic commands of git, `git init`, `git add`, `git commit`, `git push`, `git pull`, `git status`, `git branch`, `git checkout`, `git merge`, `git cherry-pick`
+- Understanding the basic commands of git, `git init`, `git add`, `git commit`, `git push`, `git pull`, `git status`, `git branch`, `git switch` (and the older `git checkout`), `git merge`, `git cherry-pick`
 - Understand what `.gitignore` does and why Git tracks everything by default
 - Actually understand what git is doing under the hood, how are blobs linked to commits, how every commit is a snapshot
 - Choose between **merge** (fast-forward vs `--no-ff`) and **rebase** deliberately, and explain the tradeoffs
@@ -111,23 +111,23 @@ Teaching block described.
 **1. A commit is a tree (quick recap).** Walk the existing `sample-app/` history:
 
 1. `git log --oneline` — note one commit's SHA, e.g. `a1b2c3d`.
-2. `git cat-file -p a1b2c3d` — read the commit object out loud. Note the `tree` line and the `parent` line.
-3. `git cat-file -p <tree-SHA>` — read the tree object. It lists blobs and sub-trees by SHA.
-4. `git cat-file -p <blob-SHA>` — see the raw file content. (Confirm: the blob has no filename.)
+2. `git cat-file -p a1b2c3d` — read the commit object out loud. Note the `tree` line and the `parent` line. *That SHA is the **key**; `cat-file` prints the **value** — this is the key-value store from the slide.*
+3. `git cat-file -p <tree-SHA>` — read the tree object. It lists blobs and sub-trees by SHA — the **filename lives in the tree entry**, exactly like the tree slide.
+4. `git cat-file -p <blob-SHA>` — see the raw file content. (Confirm: the blob has no filename of its own.)
 
 **2. What a commit actually does.** Now make the graph move:
 
 1. Edit one line of `sample-app/README.md`.
 2. `git add sample-app/README.md` — the **index** now holds a new blob, staged but not committed. `git status` shows the staged change.
 3. `git commit -m "docs: tweak intro"` — a **new commit object** is born, pointing at a **new tree**, whose `README.md` entry points at a **new blob**. `HEAD` (a **ref**) advances to it.
-4. `git cat-file -p HEAD`, then its tree, then the README blob — confirm only the README blob SHA changed; `app.py`'s blob is byte-for-byte the same SHA as before. *Unchanged content is never re-stored.*
+4. `git cat-file -p HEAD`, then its tree, then the README blob — confirm only the README blob SHA changed; `app.py`'s blob is byte-for-byte the same SHA as before. *This is the snapshot slide made real: the commit is a **full snapshot**, but the unchanged blob is **reused, not re-stored**.*
 
 **3. Branching and rewriting are just pointer moves and new objects.**
 
-1. `git switch -c demo/throwaway` — a branch is a *cheap pointer* to a commit. Nothing is copied.
+1. `git switch -c demo/throwaway` — a branch is a *cheap, **movable** pointer* to a commit (the moving label from the branches slide). Nothing is copied.
 2. `git rebase -i HEAD~3` — reorder, squash, reword. Show the commit SHAs **change**: rebase doesn't *move* commits, it **creates new commit objects** and re-points the branch. Tie it straight back to "commits are immutable; their SHA is their content."
 3. **Merge — fast-forward.** When `main` hasn't moved, `git merge demo/throwaway` just slides the `main` pointer forward. No merge commit. Linear history.
-4. **Merge — `--no-ff`.** Advance `main` with a separate commit, then `git merge --no-ff demo/throwaway`. Now there **is** a merge commit (a commit with *two* parents). The graph shows the branch shape. Display both with `git log --graph --decorate --oneline --all`.
+4. **Merge — `--no-ff`.** Advance `main` with a separate commit, then `git merge --no-ff demo/throwaway`. Now there **is** a merge commit. Prove the slide: `git cat-file -p HEAD` and **count the `parent` lines — there are two**. That two-parent commit *is* the three-way merge from the deck. Display the shape with `git log --graph --decorate --oneline --all`.
 5. **Oops-recovery.** "Oops, committed to main." Demo `git reset HEAD~1 --soft` — the ref moves back one commit but the change stays in the **index** — then `git switch -c feature/recovered && git commit`. Reinforce: `reset` moves a ref; your blobs didn't go anywhere.
 
 ## You-do (breakout rooms) (60 min)
@@ -203,7 +203,7 @@ git rev-parse --short HEAD    # note this SHA — the instructions call it BASE
 4. Branch a *second* feature branch off the same baseline: `git switch main && git switch -c feature/greeting-tweaks-noff`.
 5. Cherry-pick all three commits onto it: `git cherry-pick feature/greeting-tweaks~2..feature/greeting-tweaks`.
 6. Create a small unrelated commit directly on `main` (edit `sample-app/README.md`, commit it) — this prevents fast-forwards.
-7. Merge the first branch with `git merge feature/greeting-tweaks` (since `main` has moved, this *cannot* fast-forward — Git creates a merge commit).
+7. Merge the first branch with `git merge feature/greeting-tweaks` (since `main` has moved, this *cannot* fast-forward — Git creates a merge commit). Then `git cat-file -p HEAD` and **count the `parent` lines: two** — your own three-way merge commit from the slide.
 8. Reset `main` back to `BASE` plus your README commit: `git reset --hard <SHA-of-README-commit>`.
 9. Now merge the *other* branch: `git merge --no-ff feature/greeting-tweaks-noff -m "Merge feature/greeting-tweaks-noff into main"`.
 10. Run `git log --graph --decorate --oneline --all`. **Sketch the graph in `NOTES.local.md`.** What's the same? What's different? Where does each style help or hurt?

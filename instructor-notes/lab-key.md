@@ -148,6 +148,8 @@ After Part B, both merge styles should be visible in the reflog. The expected gr
 * BASE
 ```
 
+**The two-parent check (step 7):** `git cat-file -p HEAD` on the merge commit prints **two `parent` lines** — one for the previous `main` tip, one for `feature/greeting-tweaks`. This is the concrete payoff of the teaching deck's three-way-merge slide ("a merge commit with two parents"). A fast-forward, by contrast, produces *no* new commit at all — so there's nothing with two parents to inspect. If a student sees only one parent, they fast-forwarded by accident (main hadn't actually moved).
+
 **`--no-ff` (step 9):** after the reset, `main` is at `BASE` + the README commit. The `--no-ff` merge forces a merge commit even if FF were possible:
 
 ```
