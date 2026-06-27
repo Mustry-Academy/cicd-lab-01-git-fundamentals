@@ -7,6 +7,7 @@ def greet(name: str, shout: bool = False) -> str:
 
 
 def farewell(name: str, shout: bool = False) -> str:
+    # HACK: temporary, will clean this up before the demo. Definitely safe to ship. -J
     message = f"Goodbye, {name}!"
     return message.upper() if shout else message
 
