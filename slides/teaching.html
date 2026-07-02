@@ -505,6 +505,42 @@ body{
   </div>
 </section>
 
+<!-- 11b · TAGS -->
+<section class="slide">
+  <div class="topbar">
+    <div class="brandrow"><img class="logo-img" src="logos/OriginalDark.png" alt="Mustry Solutions"></div>
+    <div class="stage">Under the hood · refs</div>
+  </div>
+
+  <div class="body">
+    <div class="sechead">
+      <span class="num">02</span>
+      <div>
+        <div class="title">Tags — a ref that <em style="font-style:italic">doesn't</em> move</div>
+        <div class="lead">A branch moves forward as you commit. A <b>tag</b> is a name pinned to <b>one specific commit, forever</b> — a permanent bookmark. That's how you mark a <b>release</b>.</div>
+      </div>
+    </div>
+    <div class="split">
+      <div class="does">
+        <div class="hd">Lightweight tag</div>
+        <p style="font-size:14px;color:var(--txt);line-height:1.5;margin-bottom:12px">Just a name pointing at a commit — nothing more. Like a branch that never moves.</p>
+        <div class="cmd" style="border:none;padding:6px 0"><code>git tag v1.2</code><span>pin <span class="mono">v1.2</span> to the current commit.</span></div>
+      </div>
+      <div class="does">
+        <div class="hd">Annotated tag <span style="color:var(--txt-faint);font-weight:400;text-transform:none;letter-spacing:0">— use this for releases</span></div>
+        <p style="font-size:14px;color:var(--txt);line-height:1.5;margin-bottom:12px">A <b>full Git object</b>: stores who tagged it, when, a message, and can be GPG-signed.</p>
+        <div class="cmd" style="border:none;padding:6px 0"><code>git tag -a v1.2 -m "Release 1.2"</code><span>a real object with author + message.</span></div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:18px">
+      <div class="lab" style="color:var(--blue)">Why it matters for CI/CD</div>
+      <p><b>Tags name the exact commit you shipped.</b> "Which code is running on Line 3?" → <span class="mono">v1.2</span>. Tags are <b>immutable pointers</b>, so a release you can always return to. Push them explicitly: <span class="mono">git push origin v1.2</span> (a plain <span class="mono">git push</span> won't send tags). We'll use these to drive real deploys in later labs.</p>
+    </div>
+  </div>
+
+  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>A branch moves · a tag stays</span></div>
+</section>
+
 <!-- 12 · BASIC COMMAND VOCABULARY -->
 <section class="slide">
   <div class="topbar">
@@ -530,6 +566,7 @@ body{
       <div class="cmd"><code>git add</code><span>stage a change for the next commit (into the <b>index</b>).</span></div>
       <div class="cmd"><code>git cherry-pick</code><span>copy a single commit onto your current branch.</span></div>
       <div class="cmd"><code>git commit</code><span>record the staged snapshot as a new commit.</span></div>
+      <div class="cmd"><code>git tag</code><span>pin a permanent name to a commit — how you mark a <b>release</b>.</span></div>
       <div class="cmd"><code>git push / pull</code><span>send / receive commits to a remote. <b>Named now, used in later labs.</b></span></div>
     </div>
   </div>
