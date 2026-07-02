@@ -4,7 +4,7 @@
 
 * 09:00 – 09:30 — introduction (welcome to the series + logistics)
 * 09:30 – 10:15 — Teaching: Introductions to git
-* 10:15 – 10:45 — I-do
+* 10:15 – 10:45 — We-do
 * 10:45 – 11:45 — You-do (breakout rooms)
 * 11:45 – 12:00 — wrap-up & questions
 
@@ -32,7 +32,7 @@ Because this is the first class, the instructor opens with the bigger picture be
 1. **Welcome & introductions.** Quick round-the-room: name, role, and one thing you want out of this course. 
 2. **What this course is about.** This is a **CI/CD course for Ignition**. That means we're going to go deep into git, CI/CD, but it will be applied to Ignition and made very practical for that stance. This is not a pur Git course or a pure CI/CD course, it's really meant to give you practical tools in your day to day work 
 3. **How the series fits together.** A rough map of where we're headed: A view on the calendar
-4. **How the labs work.** Each lab follows the same rhythm: **Teaching**, **I do** (instructor live-codes), **You do** (breakout rooms), then a **debrief**. There are optional stretch challenges if you finish early. Notes you take in `NOTES.local.md` are gitignored and yours to keep. We have 8 labs in total, where the last one will be a bigger challenge for you to fulfill in breakout rooms, where we will be there to guide you. Each lab has it's own git repo, so you will always have a fresh start, even if you where not able to complete the previous lab. 
+4. **How the labs work.** Each lab follows the same rhythm: **Teaching**, **We-do** (instructor live-codes), **You do** (breakout rooms), then a **debrief**. There are optional stretch challenges if you finish early. Notes you take in `NOTES.local.md` are gitignored and yours to keep. We have 8 labs in total, where the last one will be a bigger challenge for you to fulfill in breakout rooms, where we will be there to guide you. Each lab has it's own git repo, so you will always have a fresh start, even if you where not able to complete the previous lab. 
 5. **Breakout room rules** Sam and Jasper will float around breakout rooms to see who could use some help. We ask of everyone to share there screen at the same time in such breakout rooms, which will create the ability for us to have a 'look over you shoulder' kind of class. 
 6. **AI Agents** Ofcourse, AI will be able to probably one-shot these labs, but we would challenge you to do this class as much as possible without it, so you actually get the fundamentals, and then you'll be able to steer AI much better when building this out for yourself.
 
@@ -40,7 +40,7 @@ Because this is the first class, the instructor opens with the bigger picture be
 ## Teaching: Introductions to git (45 min)
 
 The instructor teaches the foundations. This is the conceptual half — we *do* the moves in the
-I-do that follows.
+We-do that follows.
 
 ### Setup (do this first)
 
@@ -103,7 +103,7 @@ sheet.
 - **The three pieces of working state:** **HEAD** (where you are), **refs** (named pointers like
   `main`), and the **index** (the staging area between your working tree and the next commit).
 
-## I-do (30 min)
+## We-do (30 min)
 
 The instructor live-codes, narrating the object graph at every step — now we *do* the moves the
 Teaching block described.
