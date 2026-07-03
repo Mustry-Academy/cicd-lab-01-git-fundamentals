@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lab 01 — Assignment: Inspect, branch &amp; build a clean history</title>
+<title>Lab 01: Assignment: Inspect, branch &amp; build a clean history</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -160,12 +160,12 @@ body{
 <section class="slide dark">
   <div class="topbar">
     <div class="on-dark brandrow"><img class="logo-img logo-lg" src="logos/OriginalLight.png" alt="Mustry Solutions"></div>
-    <div class="stage on-dark">Lab 01 · The assignment · 10:45 – 11:45</div>
+    <div class="stage on-dark">Lab 01 · The assignment · 10:45-11:45</div>
   </div>
   <div class="cover">
     <div class="eyebrow">The assignment · breakout rooms · 60 min</div>
     <div class="big">Inspect, branch &amp; <em>build a clean history</em>.</div>
-    <div class="sub">A short warm-up together, then two solo phases on your own clone. First you'll read a repo's real history with Git's own tools; then you'll make focused commits and shape them with branch, merge and rebase. Everything from the teaching deck, in your hands.</div>
+    <div class="sub">A short warm-up together, then two solo phases on your own clone. First you'll read a repo's real history with Git's own tools; then you'll make focused commits and shape them with branch, merge and rebase. Everything from the teaching deck, now in your hands.</div>
     <div class="for">
       <span>Floating to help</span>
       <span class="pill"><b>Sam</b></span>
@@ -174,7 +174,7 @@ body{
       <span class="pill">share your screen</span>
     </div>
   </div>
-  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Lab 01 — Git Fundamentals</span></div>
+  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Lab 01 · Git Fundamentals</span></div>
 </section>
 
 <!-- 2 · HOW THIS WORKS / RULES -->
@@ -186,14 +186,14 @@ body{
   <div class="body">
     <div class="sechead"><span class="num">READ FIRST</span><div><div class="title">How this works</div></div></div>
     <ul class="checks" style="max-width:920px">
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Share your screen</b> in your breakout room — this is a "look over your shoulder" class. We'll drop in where it's useful.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Open a scratch notebook.</b> <span class="inlinecode">NOTES.local.md</span> is gitignored — write your answers there as you go.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Share your screen</b> in your breakout room. This is a "look over your shoulder" class, so we'll drop in where it's useful.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Open a scratch notebook.</b> <span class="inlinecode">NOTES.local.md</span> is gitignored, so write your answers there as you go.</span></li>
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Do Phase 1 first.</b> Phase 2 resets history and would erase Phase 1's checkpoint commit if you do it out of order.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Try it without AI.</b> The goal is the fundamentals in your fingers — you'll steer AI far better afterwards.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Try it without AI.</b> The goal is the fundamentals in your fingers, so you'll steer AI far better afterwards.</span></li>
     </ul>
     <div class="goal good-g">
       <span class="badge">Ask early</span>
-      <p>Stuck for more than a couple of minutes? <b>Say so in the room.</b> Don't sit blocked in silence — that's exactly what we're here for.</p>
+      <p>Stuck for more than a couple of minutes? <b>Say so in the room.</b> Don't sit blocked in silence. That's exactly what we're here for.</p>
     </div>
   </div>
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Warm-up → Phase 1 → Phase 2</span></div>
@@ -229,7 +229,7 @@ body{
     </div>
     <div class="goal">
       <span class="badge">Why this order</span>
-      <p>Phase 1 leaves a <b>checkpoint commit</b> on <span class="inlinecode">main</span> that <span class="inlinecode">verify-lab.sh</span> checks. Phase 2 <b>rewrites history</b> — so the gate must pass <b>before</b> you start it.</p>
+      <p>Phase 1 leaves a <b>checkpoint commit</b> on <span class="inlinecode">main</span> that <span class="inlinecode">verify-lab.sh</span> checks. Phase 2 <b>rewrites history</b>, so the gate must pass <b>before</b> you start it.</p>
     </div>
   </div>
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Do Phase 1 before Phase 2</span></div>
@@ -247,16 +247,16 @@ body{
       <div class="steps">
         <div class="step"><div class="ix t">1</div><div class="tx">Add a single sentence to <span class="inlinecode">sample-app/README.md</span>.</div></div>
         <div class="step"><div class="ix t">2</div><div class="tx">Stage &amp; commit it (see command).</div></div>
-        <div class="step"><div class="ix t">3</div><div class="tx"><span class="inlinecode">git cat-file -p HEAD</span> — read it aloud. Note the <b>tree</b> SHA and the <b>parent</b> SHA.</div></div>
+        <div class="step"><div class="ix t">3</div><div class="tx"><span class="inlinecode">git cat-file -p HEAD</span>, then read it aloud. Note the <b>tree</b> SHA and the <b>parent</b> SHA.</div></div>
         <div class="step"><div class="ix t">4</div><div class="tx">cat-file the <b>tree</b> → find the <span class="inlinecode">README.md</span> entry → note its <b>blob</b> SHA.</div></div>
-        <div class="step"><div class="ix t">5</div><div class="tx">cat-file the <b>blob</b> → confirm it's your file content. <b>The blob has no filename</b> — the name lived in the tree.</div></div>
+        <div class="step"><div class="ix t">5</div><div class="tx">cat-file the <b>blob</b> → confirm it's your file content. <b>The blob has no filename</b>: the name lived in the tree.</div></div>
       </div>
       <div>
-        <div class="code"><pre><span class="cm"># step 2 — make a commit to trace</span>
+        <div class="code"><pre><span class="cm"># step 2: make a commit to trace</span>
 git add sample-app/README.md
 git commit -m <span class="cmd2">"docs: expand sample-app intro"</span>
 
-<span class="cm"># step 3–5 — walk the graph</span>
+<span class="cm"># steps 3 to 5: walk the graph</span>
 git cat-file -p HEAD
 git cat-file -p &lt;tree-SHA&gt;
 git cat-file -p &lt;blob-SHA&gt;
@@ -278,14 +278,14 @@ git ls-tree HEAD sample-app/</pre></div>
     <div class="stage">Warm-up · together</div>
   </div>
   <div class="body">
-    <div class="sechead"><span class="num warm">WARM-UP · 2</span><div><div class="title">Stage by hunk with <span class="mono" style="font-size:30px">add -p</span></div><div class="lead">A messy working tree → three small, logical commits.</div></div></div>
+    <div class="sechead"><span class="num warm">WARM-UP · 2</span><div><div class="title">Stage by hunk with <span class="mono" style="font-size:30px">add -p</span></div><div class="lead">A messy working tree becomes three small, logical commits.</div></div></div>
     <div class="cols2">
       <div class="steps">
-        <div class="step"><div class="ix t">1</div><div class="tx">First reset the practice commit: <span class="inlinecode">git reset --hard HEAD~1</span> (that's fine — we're about to do it properly).</div></div>
+        <div class="step"><div class="ix t">1</div><div class="tx">First reset the practice commit: <span class="inlinecode">git reset --hard HEAD~1</span> (that's fine, we're about to do it properly).</div></div>
         <div class="step"><div class="ix t">2</div><div class="tx">Branch off: <span class="inlinecode">git switch -c we-do-greeting-polish</span>.</div></div>
         <div class="step"><div class="ix t">3</div><div class="tx">Run the seed script → confirm a known dirty tree with <span class="inlinecode">git status</span>.</div></div>
         <div class="step"><div class="ix t">4</div><div class="tx"><span class="inlinecode">git add -p</span> → stage <b>one</b> logical change, commit it. Repeat ×3.</div></div>
-        <div class="step"><div class="ix t">5</div><div class="tx">After each commit, <span class="inlinecode">git ls-tree -r HEAD sample-app/</span> — watch <b>which blob SHA changed</b>.</div></div>
+        <div class="step"><div class="ix t">5</div><div class="tx">After each commit, <span class="inlinecode">git ls-tree -r HEAD sample-app/</span>, and watch <b>which blob SHA changed</b>.</div></div>
       </div>
       <div>
         <div class="code"><pre>git reset --hard HEAD~1
@@ -317,40 +317,40 @@ git log --graph --decorate --oneline -5</pre></div>
     <div class="title" style="color:#fff">Read history like a detective</div>
     <p class="lead">Return to a clean <span class="mono" style="color:#dbe4f0">main</span> first (<span class="mono" style="color:#dbe4f0">git switch main</span>), then answer each question in <span class="mono" style="color:#dbe4f0">NOTES.local.md</span>.</p>
     <ul class="checks" style="max-width:980px;margin-top:20px">
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>app.py's own history.</b> <span class="mono" style="color:#dbe4f0">git log --oneline -- sample-app/app.py</span> — find the <b>--shout</b> commit and the <b>farewell()</b> commit.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>app.py's own history.</b> <span class="mono" style="color:#dbe4f0">git log --oneline -- sample-app/app.py</span>, then find the <b>--shout</b> commit and the <b>farewell()</b> commit.</span></li>
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Who introduced greet()?</b> <span class="mono" style="color:#dbe4f0">git log -S "def greet" -- sample-app/app.py</span>. Surprised where it lands?</span></li>
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Who introduced farewell()?</b> Same with <span class="mono" style="color:#dbe4f0">"def farewell"</span>. How does it differ?</span></li>
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Blob before farewell() existed.</b> <span class="mono" style="color:#dbe4f0">git ls-tree &lt;shout-SHA&gt; sample-app/app.py</span> → cat-file the blob → confirm no farewell() yet.</span></li>
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Tree shape at that commit.</b> Using <i>only</i> cat-file &amp; ls-tree, list every tracked file. How many?</span></li>
     </ul>
   </div>
-  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Phase 1 · questions 1–5 → who wrote that? next</span></div>
+  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Phase 1 · questions 1 to 5 → who wrote that? next</span></div>
 </section>
 
-<!-- 7 · PHASE 1 — GIT BLAME (the fun one) -->
+<!-- 7 · PHASE 1 · GIT BLAME (the fun one) -->
 <section class="slide">
   <div class="topbar">
     <div class="brandrow"><img class="logo-img" src="logos/OriginalDark.png" alt="Mustry Solutions"></div>
     <div class="stage">Solo · Phase 1 · whodunnit</div>
   </div>
   <div class="body">
-    <div class="sechead"><span class="num p">PHASE 1 · 6</span><div><div class="title">"Who on earth wrote <span class="mono" style="font-size:30px">this</span>?"</div><div class="lead">Every line in a file has an author and a commit. <span class="inlinecode">git blame</span> tells you exactly who to thank — or who to <i>blame</i>.</div></div></div>
+    <div class="sechead"><span class="num p">PHASE 1 · 6</span><div><div class="title">"Who on earth wrote <span class="mono" style="font-size:30px">this</span>?"</div><div class="lead">Every line in a file has an author and a commit. <span class="inlinecode">git blame</span> tells you exactly who to thank, or who to <i>blame</i>.</div></div></div>
     <div class="cols2">
       <div class="steps">
-        <div class="step"><div class="ix p">1</div><div class="tx">Open <span class="inlinecode">sample-app/app.py</span> and find the suspicious line in <span class="inlinecode">farewell()</span> — the one promising it's <i>"definitely safe to ship."</i></div></div>
+        <div class="step"><div class="ix p">1</div><div class="tx">Open <span class="inlinecode">sample-app/app.py</span> and find the suspicious line in <span class="inlinecode">farewell()</span>, the one promising it's <i>"definitely safe to ship."</i></div></div>
         <div class="step"><div class="ix p">2</div><div class="tx">Run <span class="inlinecode">git blame sample-app/app.py</span>. Each line shows its <b>commit · author · date</b>.</div></div>
         <div class="step"><div class="ix p">3</div><div class="tx"><b>Who wrote that line?</b> 👀 Read the author off the blame output. Anyone you recognise…?</div></div>
-        <div class="step"><div class="ix p">4</div><div class="tx">Read the full story of that line: <span class="inlinecode">git log -p -L :farewell:sample-app/app.py</span> — blame + log together are how you reconstruct <i>why</i> a line exists.</div></div>
+        <div class="step"><div class="ix p">4</div><div class="tx">Read the full story of that line: <span class="inlinecode">git log -p -L :farewell:sample-app/app.py</span>. Blame and log together are how you reconstruct <i>why</i> a line exists.</div></div>
       </div>
       <div>
-        <div class="code"><pre><span class="cm"># 2 — author + commit for every line</span>
+        <div class="code"><pre><span class="cm"># 2: author + commit for every line</span>
 git blame sample-app/app.py
 
-<span class="cm"># 4 — the whole history of that function's lines</span>
+<span class="cm"># 4: the whole history of that function's lines</span>
 git log -p -L :farewell:sample-app/app.py</pre></div>
         <div class="goal good-g" style="margin-top:18px">
           <span class="badge">Why it matters</span>
-          <p><b>blame isn't for pointing fingers</b> — it's how you find the commit (and the reasoning) behind any line, fast.</p>
+          <p><b>blame isn't for pointing fingers.</b> It's how you find the commit (and the reasoning) behind any line, fast.</p>
         </div>
       </div>
     </div>
@@ -358,27 +358,27 @@ git log -p -L :farewell:sample-app/app.py</pre></div>
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Phase 1 · git blame → focused commit next</span></div>
 </section>
 
-<!-- 8 · PHASE 1 — FOCUSED COMMIT + GATE -->
+<!-- 8 · PHASE 1 · FOCUSED COMMIT + GATE -->
 <section class="slide">
   <div class="topbar">
     <div class="brandrow"><img class="logo-img" src="logos/OriginalDark.png" alt="Mustry Solutions"></div>
     <div class="stage">Solo · Phase 1 · the gate</div>
   </div>
   <div class="body">
-    <div class="sechead"><span class="num p">PHASE 1 · 7–8</span><div><div class="title">Make a focused commit, then check the gate</div></div></div>
+    <div class="sechead"><span class="num p">PHASE 1 · 7-8</span><div><div class="title">Make a focused commit, then check the gate</div></div></div>
     <div class="cols2">
       <div class="steps">
         <div class="step"><div class="ix p">7</div><div class="tx">Add your name to <span class="inlinecode">sample-app/README.md</span> as a <b>"lab participant"</b> line. Commit it with a clear message.</div></div>
-        <div class="step"><div class="ix p">7</div><div class="tx"><span class="inlinecode">git cat-file -p HEAD</span> → confirm <b>only the README blob changed</b> — not <span class="inlinecode">app.py</span>, not the <span class="inlinecode">tests/</span> tree.</div></div>
-        <div class="step"><div class="ix p">8</div><div class="tx">Run <span class="inlinecode">scripts/verify-lab.sh</span> — it must print a green ✅. <b>Run it now, before Phase 2.</b></div></div>
+        <div class="step"><div class="ix p">7</div><div class="tx"><span class="inlinecode">git cat-file -p HEAD</span> → confirm <b>only the README blob changed</b>, not <span class="inlinecode">app.py</span>, not the <span class="inlinecode">tests/</span> tree.</div></div>
+        <div class="step"><div class="ix p">8</div><div class="tx">Run <span class="inlinecode">scripts/verify-lab.sh</span>. It must print a green ✅. <b>Run it now, before Phase 2.</b></div></div>
       </div>
       <div>
-        <div class="code"><pre><span class="cm"># step 7 — one clean, isolated commit</span>
+        <div class="code"><pre><span class="cm"># step 7: one clean, isolated commit</span>
 git add sample-app/README.md
 git commit -m <span class="cmd2">"docs: add lab participant"</span>
 git cat-file -p HEAD
 
-<span class="cm"># step 8 — the gate</span>
+<span class="cm"># step 8: the gate</span>
 scripts/verify-lab.sh   <span class="cm"># → ✅</span></pre></div>
         <div class="goal good-g" style="margin-top:18px">
           <span class="badge">✅ Gate</span>
@@ -390,7 +390,7 @@ scripts/verify-lab.sh   <span class="cm"># → ✅</span></pre></div>
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Green ✅? → Phase 2</span></div>
 </section>
 
-<!-- 9 · PHASE 2 — DIVIDER + BASELINE -->
+<!-- 9 · PHASE 2 · DIVIDER + BASELINE -->
 <section class="slide dark">
   <div class="topbar">
     <div class="on-dark brandrow"><img class="logo-img" src="logos/OriginalLight.png" alt="Mustry Solutions"></div>
@@ -399,13 +399,13 @@ scripts/verify-lab.sh   <span class="cm"># → ✅</span></pre></div>
   <div class="body">
     <div class="eyebrow">Phase 2 · solo · branch, merge &amp; rebase</div>
     <div class="title" style="color:#fff;max-width:20ch">Make the workflows from the slides happen for real</div>
-    <p class="lead">Record your baseline now — you'll reset back to it a few times.</p>
+    <p class="lead">Record your baseline now, because you'll reset back to it a few times.</p>
     <div class="code" style="max-width:640px"><pre>git switch main
 git rev-parse --short HEAD   <span class="cm"># note this → "BASE"</span></pre></div>
     <ul class="checks" style="margin-top:22px;max-width:900px">
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Part A</b> — three clean commits with <span class="mono" style="color:#dbe4f0">add -p</span>.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Part B</b> — compare merge styles (fast-forward-blocked &amp; <span class="mono" style="color:#dbe4f0">--no-ff</span>).</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Part C</b> — a linear rebase.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Part A:</b> three clean commits with <span class="mono" style="color:#dbe4f0">add -p</span>.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Part B:</b> compare merge styles (fast-forward-blocked &amp; <span class="mono" style="color:#dbe4f0">--no-ff</span>).</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Part C:</b> a linear rebase.</span></li>
     </ul>
   </div>
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Phase 2 · Part A → B → C</span></div>
@@ -418,7 +418,7 @@ git rev-parse --short HEAD   <span class="cm"># note this → "BASE"</span></pre
     <div class="stage">Phase 2 · Part A</div>
   </div>
   <div class="body">
-    <div class="sechead"><span class="num phase2">PART A</span><div><div class="title">Three clean commits</div><div class="lead">One change per commit — imagine a reviewer skimming them in 30 seconds.</div></div></div>
+    <div class="sechead"><span class="num phase2">PART A</span><div><div class="title">Three clean commits</div><div class="lead">One change per commit. Imagine a reviewer skimming them in 30 seconds.</div></div></div>
     <div class="cols2">
       <div class="steps">
         <div class="step"><div class="ix p">1</div><div class="tx"><span class="inlinecode">git switch -c feature/greeting-tweaks</span> from <span class="inlinecode">main</span>.</div></div>
@@ -447,7 +447,7 @@ git commit -m <span class="cmd2">"…"</span>         <span class="cm"># …×3<
     <div class="stage">Phase 2 · Part B</div>
   </div>
   <div class="body">
-    <div class="sechead"><span class="num phase2">PART B</span><div><div class="title">Compare merge styles</div><div class="lead">See the two graph shapes side by side — and the two-parent merge commit from the slide.</div></div></div>
+    <div class="sechead"><span class="num phase2">PART B</span><div><div class="title">Compare merge styles</div><div class="lead">See the two graph shapes side by side, plus the two-parent merge commit from the slide.</div></div></div>
     <div class="cols2">
       <div class="steps">
         <div class="step"><div class="ix p">4</div><div class="tx">Second branch off the same baseline: <span class="inlinecode">feature/greeting-tweaks-noff</span>.</div></div>
@@ -485,12 +485,12 @@ git log --graph --decorate --oneline --all</pre></div>
     <div class="stage">Phase 2 · Part C</div>
   </div>
   <div class="body">
-    <div class="sechead"><span class="num phase2">PART C</span><div><div class="title">Linear rebase</div><div class="lead">The rebase slide, for real — feature commits get <b>new SHAs</b> on top of main.</div></div></div>
+    <div class="sechead"><span class="num phase2">PART C</span><div><div class="title">Linear rebase</div><div class="lead">The rebase slide, for real: feature commits get <b>new SHAs</b> on top of main.</div></div></div>
     <div class="cols2">
       <div class="steps">
         <div class="step"><div class="ix p">11</div><div class="tx">Reset once more: <span class="inlinecode">git switch main &amp;&amp; git reset --hard BASE</span>. Re-apply your README commit on top.</div></div>
-        <div class="step"><div class="ix p">12</div><div class="tx"><span class="inlinecode">git switch feature/greeting-tweaks &amp;&amp; git rebase main</span> — the three commits land on the new tip, <b>no merge commit</b>. Notice the <b>new SHAs</b>.</div></div>
-        <div class="step"><div class="ix p">13</div><div class="tx"><span class="inlinecode">git switch main &amp;&amp; git merge feature/greeting-tweaks</span> — this <b>fast-forwards</b>. Linear history.</div></div>
+        <div class="step"><div class="ix p">12</div><div class="tx"><span class="inlinecode">git switch feature/greeting-tweaks &amp;&amp; git rebase main</span>. The three commits land on the new tip, <b>no merge commit</b>. Notice the <b>new SHAs</b>.</div></div>
+        <div class="step"><div class="ix p">13</div><div class="tx"><span class="inlinecode">git switch main &amp;&amp; git merge feature/greeting-tweaks</span>. This <b>fast-forwards</b>. Linear history.</div></div>
         <div class="step"><div class="ix p">14</div><div class="tx">Compare your final graph to <span class="inlinecode">instructor-notes/lab-key.md</span>. <b>Don't peek before you finish.</b></div></div>
       </div>
       <div class="code"><pre>git switch main &amp;&amp; git reset --hard BASE
@@ -514,25 +514,25 @@ git log --graph --decorate --oneline --all</pre></div>
     <div class="stage">Optional stretch</div>
   </div>
   <div class="body">
-    <div class="sechead"><span class="num warm">OPTIONAL · 1</span><div><div class="title">Stretch 1 — rebase through a conflict</div><div class="lead">The higher-value one. Force a real conflict, then resolve it. This is the situation the object model was built to help you survive.</div></div></div>
+    <div class="sechead"><span class="num warm">OPTIONAL · 1</span><div><div class="title">Stretch 1: rebase through a conflict</div><div class="lead">The higher-value one. Force a real conflict, then resolve it. This is the situation the object model was built to help you survive.</div></div></div>
     <div class="cols2">
       <div class="steps">
         <div class="step"><div class="ix t">1</div><div class="tx">On <span class="inlinecode">main</span>, add a commit that edits the <b>same line</b> inside <span class="inlinecode">greet()</span> that one of your feature commits touched (the seed's docstring line). <b>Same-region edits on both branches are what forces a conflict.</b></div></div>
-        <div class="step"><div class="ix t">2</div><div class="tx"><span class="inlinecode">git switch feature/greeting-tweaks &amp;&amp; git rebase main</span> — Git <b>halts</b> on the conflicting commit.</div></div>
+        <div class="step"><div class="ix t">2</div><div class="tx"><span class="inlinecode">git switch feature/greeting-tweaks &amp;&amp; git rebase main</span>. Git <b>halts</b> on the conflicting commit.</div></div>
         <div class="step"><div class="ix t">3</div><div class="tx">Open <span class="inlinecode">sample-app/app.py</span>. Find the <span class="inlinecode">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> / <span class="inlinecode">=======</span> / <span class="inlinecode">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> markers and <b>resolve by keeping both</b> changes. Delete the markers.</div></div>
         <div class="step"><div class="ix t">4</div><div class="tx"><span class="inlinecode">git add sample-app/app.py</span> → <span class="inlinecode">git rebase --continue</span>. Confirm linear history.</div></div>
       </div>
       <div>
-        <div class="code"><pre><span class="cm"># 1 — make main collide with the feature edit</span>
+        <div class="code"><pre><span class="cm"># 1: make main collide with the feature edit</span>
 git switch main
 <span class="cm"># edit the same greet() line, then:</span>
 git commit -am <span class="cmd2">"main: tweak greet()"</span>
 
-<span class="cm"># 2 — rebase halts on the conflict</span>
+<span class="cm"># 2: rebase halts on the conflict</span>
 git switch feature/greeting-tweaks
 git rebase main
 
-<span class="cm"># 3–4 — resolve, then continue</span>
+<span class="cm"># 3 to 4: resolve, then continue</span>
 git add sample-app/app.py
 git rebase --continue
 git log --graph --decorate --oneline --all</pre></div>
@@ -543,7 +543,7 @@ git log --graph --decorate --oneline --all</pre></div>
       </div>
     </div>
   </div>
-  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Stretch 1 of 2 — optional</span></div>
+  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Stretch 1 of 2 · optional</span></div>
 </section>
 
 <!-- 14 · STRETCH 2 -->
@@ -553,35 +553,35 @@ git log --graph --decorate --oneline --all</pre></div>
     <div class="stage">Optional stretch</div>
   </div>
   <div class="body">
-    <div class="sechead"><span class="num phase2">OPTIONAL · 2</span><div><div class="title">Stretch 2 — be <span class="mono" style="font-size:30px">git diff</span>, by hand</div><div class="lead">A deeper dive: rebuild what <span class="inlinecode">git diff</span> does internally — a tree walk plus a blob comparison — using only the object tools.</div></div></div>
+    <div class="sechead"><span class="num phase2">OPTIONAL · 2</span><div><div class="title">Stretch 2: be <span class="mono" style="font-size:30px">git diff</span>, by hand</div><div class="lead">A deeper dive: rebuild what <span class="inlinecode">git diff</span> does internally (a tree walk plus a blob comparison) using only the object tools.</div></div></div>
     <div class="cols2">
       <div class="steps">
         <div class="step"><div class="ix p">1</div><div class="tx">Pick two adjacent commits, e.g. <span class="inlinecode">HEAD</span> and <span class="inlinecode">HEAD~1</span>.</div></div>
         <div class="step"><div class="ix p">2</div><div class="tx"><span class="inlinecode">git ls-tree -r</span> each one. <b>Which files exist in B but not A?</b> For files in both, <b>which blob SHAs differ?</b></div></div>
         <div class="step"><div class="ix p">3</div><div class="tx">For a changed file, <span class="inlinecode">git cat-file -p</span> the old blob and the new blob → compare them and spot the changed line(s) by eye.</div></div>
-        <div class="step"><div class="ix p">4</div><div class="tx">Now run the real <span class="inlinecode">git diff &lt;A&gt; &lt;B&gt;</span> — it should match what you found. <b>You just reimplemented diff.</b></div></div>
+        <div class="step"><div class="ix p">4</div><div class="tx">Now run the real <span class="inlinecode">git diff &lt;A&gt; &lt;B&gt;</span>. It should match what you found. <b>You just reimplemented diff.</b></div></div>
       </div>
       <div>
-        <div class="code"><pre><span class="cm"># 2 — walk the two trees, compare entries</span>
+        <div class="code"><pre><span class="cm"># 2: walk the two trees, compare entries</span>
 git ls-tree -r HEAD~1
 git ls-tree -r HEAD
 <span class="cm"># same path + different SHA  → changed file</span>
 <span class="cm"># path only on one side      → added/removed</span>
 
-<span class="cm"># 3 — compare the two blobs</span>
+<span class="cm"># 3: compare the two blobs</span>
 git cat-file -p &lt;old-blob-SHA&gt;
 git cat-file -p &lt;new-blob-SHA&gt;
 
-<span class="cm"># 4 — check yourself</span>
+<span class="cm"># 4: check yourself</span>
 git diff HEAD~1 HEAD</pre></div>
         <div class="goal" style="margin-top:16px;border-left-color:var(--peri)">
           <span class="badge" style="background:var(--peri);color:var(--navy)">The point</span>
-          <p><span class="inlinecode">git diff</span> is <b>not magic</b> — it's the key-value store + a tree walk. The mental model from the slides is now something you can operate by hand.</p>
+          <p><span class="inlinecode">git diff</span> is <b>not magic</b>. It's the key-value store plus a tree walk. The mental model from the slides is now something you can operate by hand.</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Stretch 2 of 2 — optional</span></div>
+  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Stretch 2 of 2 · optional</span></div>
 </section>
 
 <!-- 15 · DONE -->
@@ -600,7 +600,7 @@ git diff HEAD~1 HEAD</pre></div>
     </ul>
     <div class="goal" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);border-left-color:var(--peri2)">
       <span class="badge" style="background:var(--peri2);color:var(--navy)">Next</span>
-      <p style="color:#c4cfde">Wrap-up &amp; questions (11:45) — merge vs rebase for <b style="color:#fff">your</b> team, recovering a wrong-branch commit, and the aliases worth keeping.</p>
+      <p style="color:#c4cfde">Wrap-up &amp; questions (11:45): merge vs rebase for <b style="color:#fff">your</b> team, recovering a wrong-branch commit, and the aliases worth keeping.</p>
     </div>
   </div>
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Lab 01 complete</span></div>
