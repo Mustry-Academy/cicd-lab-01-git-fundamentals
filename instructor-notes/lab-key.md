@@ -198,7 +198,7 @@ After Part C, `git log --graph --decorate --oneline --all` should show a **linea
 
 No merge commit. No diverging branch. `main` and `feature/greeting-tweaks` point to the same commit.
 
-The feature commits will have **new SHAs** because rebase rewrites them. Students who don't notice this is a good moment to revisit the "commits are immutable" point from the I-do — `git rebase` doesn't *move* commits, it creates new ones and re-points the branch.
+The feature commits will have **new SHAs** because rebase rewrites them. Students who don't notice this is a good moment to revisit the "commits are immutable" point from the We-do — `git rebase` doesn't *move* commits, it creates new ones and re-points the branch.
 
 ## Stretch keys
 
@@ -239,7 +239,7 @@ diff /tmp/old.txt /tmp/new.txt
 # This output matches what `git diff HEAD~1 HEAD -- <path>` shows (minus the header).
 ```
 
-Goal: students see that `git diff` is not a black box — it's a tree walk + blob comparison. The mental model from the I-do is now operational.
+Goal: students see that `git diff` is not a black box — it's a tree walk + blob comparison. The mental model from the We-do is now operational.
 
 ## Wrap-up & questions crib
 
