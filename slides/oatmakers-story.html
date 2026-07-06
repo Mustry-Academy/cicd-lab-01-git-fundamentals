@@ -937,7 +937,7 @@ function buildWorld(mountId){
   el('line',{class:'link',x1:175,y1:155,x2:175,y2:213,'marker-end':AG},repo);
   parts.repo=repo;
   const mg=el('g',{class:'minig vshow'},svg);
-  const lanes=[['main',272],['develop',312],['feature/v2.0',352]];
+  const lanes=[['main',272],['fix/null-reading',312],['feature/v2.0',352]];
   lanes.forEach(L=>{
     el('line',{class:'lane',x1:90,y1:L[1],x2:260,y2:L[1]},mg);
     txt({class:'lname',x:90,y:L[1]-7},mg,L[0]);
@@ -949,7 +949,7 @@ function buildWorld(mountId){
   const hf=el('g',{class:'vshow'},svg);
   el('path',{d:'M166,268 C190,246 216,246 240,266',stroke:'#4ade80','stroke-width':2,fill:'none','marker-end':AF},hf);
   el('circle',{cx:245,cy:272,r:5,fill:'#101d14',stroke:'#4ade80','stroke-width':2},hf);
-  txt({class:'lname',x:203,y:250,'text-anchor':'middle',fill:'#86efac'},hf,'hotfix · v1.2.1');
+  txt({class:'lname',x:203,y:250,'text-anchor':'middle',fill:'#86efac'},hf,'fix · v1.2.1');
   parts.hotfix=hf;
 
   /* green check pulse on the repo (day 2 payoff) */
@@ -1194,7 +1194,7 @@ controllers.day1=worldCtrl('viz-day1','day1-step',['hq','sites'],[
   {badges:'usbEnd',t:'Where we left Oatmakers.'},
   {add:['repo','gwbk','gwbkx'],t:'Day 1: every change gets a home. One shared history, with an author and a reason for every change.'},
   {add:['repograph'],t:'Branches make parallel work safe. v2.0 builds on its own lane while production stays shippable.'},
-  {add:['hotfix'],t:'And the 3 AM scenario gets a calm answer: hotfix off v1.2, merged twice, tagged v1.2.1. You will do this with your own hands in Lab 02.'},
+  {add:['hotfix'],t:'And the 3 AM scenario gets a calm answer: a fix branched off v1.2, one reviewed PR, merged and tagged v1.2.1. You will do this with your own hands in Lab 02.'},
   {t:'The sites have not changed yet. But the truth finally has an address.'}
 ],(s)=>{chip('chips-day1-a',s>=4);chip('chips-day1-b',s>=4);});
 
