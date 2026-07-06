@@ -482,13 +482,13 @@ git commit -m <span class="cmd2">"…"</span>         <span class="cm"># …×3<
     <div class="cols2">
       <div class="steps">
         <div class="step"><div class="ix p">4</div><div class="tx">From Part A, <span class="inlinecode">feature/greeting-tweaks</span> is <b>three commits ahead</b>; <span class="inlinecode">main</span> still sits at your README commit.</div></div>
-        <div class="step"><div class="ix p">5</div><div class="tx">Put one small <b>unrelated</b> commit on <span class="inlinecode">main</span> (edit a different file). Now the branches have <b>diverged</b>, so a fast-forward is impossible.</div></div>
+        <div class="step"><div class="ix p">5</div><div class="tx">Put one small <b>unrelated</b> commit on <span class="inlinecode">main</span> (edit a file the seed didn't touch, e.g. the root <span class="inlinecode">README.md</span>). Now the branches have <b>diverged</b>, so a fast-forward is impossible.</div></div>
         <div class="step"><div class="ix p">6</div><div class="tx"><span class="inlinecode">git merge feature/greeting-tweaks</span>. Git can't fast-forward, so it records a <b>merge commit</b>.</div></div>
         <div class="step"><div class="ix p">7</div><div class="tx"><span class="inlinecode">git cat-file -p HEAD</span> → it lists <b>two parents</b>. <span class="inlinecode">git log --graph</span> shows the diamond where the branches rejoin.</div></div>
       </div>
       <div>
         <div class="code"><pre>git switch main
-<span class="cm"># edit a different file, then commit:</span>
+<span class="cm"># edit the root README.md, then commit:</span>
 git commit -am <span class="cmd2">"chore: unrelated note on main"</span>
 
 git merge feature/greeting-tweaks    <span class="cm"># → merge commit</span>
@@ -514,13 +514,14 @@ git log --graph --decorate --oneline --all</pre></div>
     <div class="sechead"><span class="num phase2">PART C</span><div><div class="title">Linear rebase</div><div class="lead">The rebase slide, for real: feature commits get <b>new SHAs</b> on top of main.</div></div></div>
     <div class="cols2">
       <div class="steps">
-        <div class="step"><div class="ix p">9</div><div class="tx">Reset once more: <span class="inlinecode">git switch main &amp;&amp; git reset --hard BASE</span>. Re-apply your README commit on top.</div></div>
+        <div class="step"><div class="ix p">9</div><div class="tx">Reset once more: <span class="inlinecode">git switch main &amp;&amp; git reset --hard BASE</span>. This drops Part B's merge <b>and</b> its note commit. <b>Redo the note commit</b> so <span class="inlinecode">main</span> is ahead of the fork point again; without it, the rebase has nothing to do.</div></div>
         <div class="step"><div class="ix p">10</div><div class="tx"><span class="inlinecode">git switch feature/greeting-tweaks &amp;&amp; git rebase main</span>. The three commits land on the new tip, <b>no merge commit</b>. Notice the <b>new SHAs</b>.</div></div>
         <div class="step"><div class="ix p">11</div><div class="tx"><span class="inlinecode">git switch main &amp;&amp; git merge feature/greeting-tweaks</span>. This <b>fast-forwards</b>. Linear history.</div></div>
         <div class="step"><div class="ix p">12</div><div class="tx">Compare your final graph to <span class="inlinecode">instructor-notes/lab-key.md</span>. <b>Don't peek before you finish.</b></div></div>
       </div>
       <div class="code"><pre>git switch main &amp;&amp; git reset --hard BASE
-<span class="cm"># re-apply README commit</span>
+<span class="cm"># redo the note: edit root README.md again, then</span>
+git commit -am <span class="cmd2">"chore: unrelated note on main"</span>
 
 git switch feature/greeting-tweaks
 git rebase main            <span class="cm"># new SHAs!</span>
@@ -543,22 +544,26 @@ git log --graph --decorate --oneline --all</pre></div>
     <div class="sechead"><span class="num warm">OPTIONAL · 1</span><div><div class="title">Stretch 1: rebase through a conflict</div><div class="lead">The higher-value one. Force a real conflict, then resolve it. This is the situation the object model was built to help you survive.</div></div></div>
     <div class="cols2">
       <div class="steps">
-        <div class="step"><div class="ix t">1</div><div class="tx">On <span class="inlinecode">main</span>, add a commit that edits the <b>same line</b> inside <span class="inlinecode">greet()</span> that one of your feature commits touched (the seed's docstring line). <b>Same-region edits on both branches are what forces a conflict.</b></div></div>
-        <div class="step"><div class="ix t">2</div><div class="tx"><span class="inlinecode">git switch feature/greeting-tweaks &amp;&amp; git rebase main</span>. Git <b>halts</b> on the conflicting commit.</div></div>
-        <div class="step"><div class="ix t">3</div><div class="tx">Open <span class="inlinecode">sample-app/app.py</span>. Find the <span class="inlinecode">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> / <span class="inlinecode">=======</span> / <span class="inlinecode">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> markers and <b>resolve by keeping both</b> changes. Delete the markers.</div></div>
-        <div class="step"><div class="ix t">4</div><div class="tx"><span class="inlinecode">git add sample-app/app.py</span> → <span class="inlinecode">git rebase --continue</span>. Confirm linear history.</div></div>
+        <div class="step"><div class="ix t">1</div><div class="tx"><b>Diverge again first.</b> After Part C, <span class="inlinecode">main</span> and the feature branch point at the <b>same commit</b>, so a rebase would do nothing. On <span class="inlinecode">main</span>, run <span class="inlinecode">git reset --hard HEAD~3</span>: the three feature commits leave <span class="inlinecode">main</span> but stay on <span class="inlinecode">feature/greeting-tweaks</span>.</div></div>
+        <div class="step"><div class="ix t">2</div><div class="tx">On <span class="inlinecode">main</span>, add a commit that edits the <b>same spot</b> inside <span class="inlinecode">greet()</span> that the feature's docstring commit touches (e.g. a comment just above the <span class="inlinecode">message =</span> line). <b>Same-region edits on both branches are what forces a conflict.</b></div></div>
+        <div class="step"><div class="ix t">3</div><div class="tx"><span class="inlinecode">git switch feature/greeting-tweaks &amp;&amp; git rebase main</span>. Git <b>halts</b> on the conflicting commit.</div></div>
+        <div class="step"><div class="ix t">4</div><div class="tx">Open <span class="inlinecode">sample-app/app.py</span>. Find the <span class="inlinecode">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> / <span class="inlinecode">=======</span> / <span class="inlinecode">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> markers and <b>resolve by keeping both</b> changes. Delete the markers.</div></div>
+        <div class="step"><div class="ix t">5</div><div class="tx"><span class="inlinecode">git add sample-app/app.py</span> → <span class="inlinecode">git rebase --continue</span>. Confirm linear history.</div></div>
       </div>
       <div>
-        <div class="code"><pre><span class="cm"># 1: make main collide with the feature edit</span>
+        <div class="code"><pre><span class="cm"># 1: pull main back behind the feature branch</span>
 git switch main
-<span class="cm"># edit the same greet() line, then:</span>
+git reset --hard HEAD~3
+
+<span class="cm"># 2: make main collide with the feature edit</span>
+<span class="cm"># edit the same greet() spot, then:</span>
 git commit -am <span class="cmd2">"main: tweak greet()"</span>
 
-<span class="cm"># 2: rebase halts on the conflict</span>
+<span class="cm"># 3: rebase halts on the conflict</span>
 git switch feature/greeting-tweaks
 git rebase main
 
-<span class="cm"># 3 to 4: resolve, then continue</span>
+<span class="cm"># 4 to 5: resolve, then continue</span>
 git add sample-app/app.py
 git rebase --continue
 git log --graph --decorate --oneline --all</pre></div>

@@ -3,7 +3,7 @@
 #
 # Verifies (best-effort):
 #   - Phase 1's focused commit is in place, with no uncommitted changes.
-#   - sample-app/README.md contains a "lab participant" line added in You-do Phase 1 step 4.
+#   - sample-app/README.md contains a "lab participant" line added in You-do Phase 1 step 5.
 #   - HEAD's commit touched only sample-app/README.md (no incidental changes).
 #
 # Exit codes: 0 = all green, 1 = something to fix.
@@ -28,7 +28,7 @@ fi
 if grep -qi "lab participant" sample-app/README.md; then
   say_pass "sample-app/README.md mentions a lab participant"
 else
-  say_fail "sample-app/README.md is missing a 'lab participant' line — see You-do Phase 1 step 4"
+  say_fail "sample-app/README.md is missing a 'lab participant' line — see You-do Phase 1 step 5"
 fi
 
 # 3. HEAD should touch only sample-app/README.md.

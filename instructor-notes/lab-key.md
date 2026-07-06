@@ -9,77 +9,13 @@
 1. **initial commit** — `app.py` is born with `greet()` and an argv-driven `__main__`. *(author: Sam)*
 2. **add shout functionality** — `greet()` gains the `shout` parameter / `--shout` flag. *(author: Sam)*
 3. **add farewell functionality** — `farewell()` is added alongside `greet()`. *(author: Sam)*
-4. **farewell: add a quick temporary hack** — a deliberately silly `# HACK … definitely safe to ship. -J` comment inside `farewell()`. **Authored by Jasper** — this is the bait for the `git blame` gag in question 6.
+4. **farewell: add a quick temporary hack** — a deliberately silly `# HACK … definitely safe to ship. -J` comment inside `farewell()`. **Authored by Jasper** — this is the bait for the `git blame` gag in Phase 1 steps 1–4.
 
-SHAs differ per-build because Git timestamps are per-author/date, so the key works by **commit messages and `-S` queries**, not literal SHAs. The questions are deliberately phrased against `app.py`'s own history (found via `git log -- sample-app/app.py`) rather than `HEAD~N`, so unrelated doc/lab commits stacked on top don't throw off the answers.
+SHAs differ per-build because Git timestamps are per-author/date, so the key works by **commit messages**, not literal SHAs. If you re-seed the repo from scratch, re-create the HACK commit with `git commit --author="Jasper Louage <jasper.louage@mustrysolutions.com>"`.
 
-> **Note on the commit count:** questions 1–5 still work unchanged. The HACK commit is the *newest* commit and is authored by Jasper; it does **not** touch the `--shout` commit or the `farewell()` commit the questions reference (those are found by `-S` and by message), so the "blob before farewell()" and "tree shape" answers are unaffected. If you re-seed the repo from scratch, re-create this commit with `git commit --author="Jasper Louage <jasper.louage@mustrysolutions.com>"`.
+## Phase 1 — whodunnit + focused commit
 
-## Phase 1 — spelunk + focused commit
-
-### 1. `app.py`'s own history
-
-```bash
-git log --oneline -- sample-app/app.py
-# Four commits, newest first:
-#   <sha> farewell: add a quick temporary hack (will clean up later)   ← Jasper
-#   <sha> add farewell functionality to sample-app
-#   <sha> add shout functionality to the sample application
-#   <sha> initial commit
-```
-
-Students should pick out the **shout** commit and the **farewell** commit by message — both are reused in #4/#5 and #3.
-
-### 2. Which commit introduced `greet()`?
-
-```bash
-git log -S "def greet" --oneline -- sample-app/app.py
-# Returns exactly one commit: the INITIAL commit.
-```
-
-The "surprise" is that `greet()` has been there since the very first commit — it predates both `shout` and `farewell`. (The `shout` commit edits the `def greet` line but doesn't change the *count* of "def greet", so `-S` doesn't report it.) If a student gets more than one commit, they forgot the `-- sample-app/app.py` pathspec.
-
-### 3. Which commit introduced `farewell()`?
-
-```bash
-git log -S "def farewell" --oneline -- sample-app/app.py
-# Returns exactly one commit: "add farewell functionality to sample-app".
-```
-
-Contrast with #2: `greet()` is original, `farewell()` is a later addition. Same tool (`-S`), two different commits — the point is that `-S` finds *content*, not position.
-
-### 4. Blob SHA before `farewell()` existed
-
-```bash
-git ls-tree <shout-SHA> sample-app/app.py
-# 100644 blob <BLOB-SHA> sample-app/app.py
-git cat-file -p <BLOB-SHA>
-# app.py as of the shout commit: greet() with shout support, but NO farewell() yet.
-git show <shout-SHA>:sample-app/app.py
-# Should match the blob byte-for-byte.
-```
-
-Confirm with the student that `farewell()` is absent here — that's the whole point of picking the commit *before* it was added.
-
-### 5. Tree shape at that commit
-
-```bash
-git cat-file -p <shout-SHA>
-# Read the tree SHA from this output, then:
-git cat-file -p <TREE-SHA>
-# Top-level entries: sample-app (tree) plus the lab-level files.
-git ls-tree -r --name-only <shout-SHA>
-# Inside sample-app/, expect exactly four files:
-#   sample-app/README.md
-#   sample-app/app.py
-#   sample-app/requirements.txt
-#   sample-app/tests/test_app.py
-# (plus whatever lab-level files existed at that commit — count varies by build).
-```
-
-The `sample-app/` subtree is the stable part (four files). The lab-level file count depends on what else was committed at that point, so don't grade on the total.
-
-### 6. Whodunnit? (the `git blame` gag)
+### 1–4. Whodunnit? (the `git blame` gag)
 
 ```bash
 git blame sample-app/app.py
@@ -87,9 +23,9 @@ git blame sample-app/app.py
 #   <sha> (Jasper Louage <date> NN) # HACK: …
 ```
 
-**Answer: the line is authored by Jasper** (the instructor). All the other lines are Sam's, so the contrast makes it obvious. This is purely for the laugh + to show that blame is *per line*, with author + commit + date. The follow-up `git log -p -L :farewell:sample-app/app.py` shows the full line-history of the function (blame = *who*, log = *why*). Lean into it: "blame isn't for finger-pointing, it's how you find the commit behind any line" — then reveal it's your own hack.
+**Answer: the line is authored by Jasper** (the instructor). All the other lines are Sam's, so the contrast makes it obvious. This is purely for the laugh + to show that blame is *per line*, with author + commit + date. The follow-up `git log -p -L :farewell:sample-app/app.py` (step 4) shows the full line-history of the function, newest first: the HACK commit on top, then "add farewell functionality" where the function was born (blame = *who*, log = *why*). Lean into it: "blame isn't for finger-pointing, it's how you find the commit behind any line" — then reveal it's your own hack.
 
-### 7. Make a focused commit
+### 5–6. Make a focused commit
 
 Expected diff in the new commit: exactly one hunk in `sample-app/README.md` adding a "lab participant" line.
 
@@ -110,7 +46,7 @@ git ls-tree HEAD sample-app/
 
 Common mistake: students accidentally also save unrelated file changes (e.g., they ran `pytest` and a `.pytest_cache/` got pulled in). The `.gitignore` covers `.pytest_cache/`, but if they forced an add, you'll see additional blobs. Look for `git add .` in their shell history.
 
-### 8. Sanity check
+### 7. The gate
 
 `scripts/verify-lab.sh` should print all-green here. It checks a clean tree, a "lab participant" line in `sample-app/README.md`, and that `HEAD` touched **only** `sample-app/README.md`. Students must run it **before** Phase 2's resets — once Phase 2 rewrites history, the "HEAD touched only README" invariant no longer holds.
 
@@ -145,11 +81,15 @@ The exact commit ordering depends on the student. What matters is:
 
 If a student lumps everything into a single commit, push them back to redo with `git reset HEAD~1 --soft` and try `add -p` again. The point of `-p` is staging discipline; one giant commit defeats the exercise.
 
-### Part B — merge style comparison
+### Part B — a real merge commit
 
-After Part B, both merge styles should be visible in the reflog. The expected graphs:
+The unrelated commit (step 5) must touch a file the seed **didn't** — the instructions say the root
+`README.md`. If a student edits `sample-app/README.md` instead, the seed's "Run me" commit appends
+to the same file end and Part C's rebase will hit a conflict they weren't meant to see yet (that's
+Stretch 1's job).
 
-**Fast-forward attempted (step 7):** at this point `main` has *moved* via the README commit, so a plain `git merge` will **not** fast-forward. Git produces an implicit merge commit:
+**Expected graph after the merge (steps 6–7):** `main` has moved, so a plain `git merge` cannot
+fast-forward — Git produces a merge commit:
 
 ```
 *   merge commit on main
@@ -157,43 +97,37 @@ After Part B, both merge styles should be visible in the reflog. The expected gr
 | * test: cover empty-string input
 | * docs: document how to run the sample app
 | * refactor(app): add docstring to greet()
-* | main: add README note before merge
+* | chore: unrelated note on main
 |/
-* BASE
+* BASE (= the Phase 1 focused commit)
 ```
 
-**The two-parent check (step 7):** `git cat-file -p HEAD` on the merge commit prints **two `parent` lines** — one for the previous `main` tip, one for `feature/greeting-tweaks`. This is the concrete payoff of the teaching deck's three-way-merge slide ("a merge commit with two parents"). A fast-forward, by contrast, produces *no* new commit at all — so there's nothing with two parents to inspect. If a student sees only one parent, they fast-forwarded by accident (main hadn't actually moved).
+**The two-parent check (step 7):** `git cat-file -p HEAD` on the merge commit prints **two `parent` lines** — one for the previous `main` tip, one for `feature/greeting-tweaks`. This is the concrete payoff of the teaching deck's three-way-merge slide ("a merge commit with two parents"). A fast-forward, by contrast, produces *no* new commit at all — so there's nothing with two parents to inspect. If a student sees only one parent, they fast-forwarded by accident (`main` hadn't actually moved — they skipped step 5).
 
-**`--no-ff` (step 9):** after the reset, `main` is at `BASE` + the README commit. The `--no-ff` merge forces a merge commit even if FF were possible:
+**Wrap-up thread (the `--no-ff` question):** the assignment no longer does the merge-style
+comparison, so raise it in the wrap-up instead: if `main` *hadn't* moved, a plain `merge` would
+fast-forward (no merge commit), while `--no-ff` would still force one — preserving the "this was a
+branch" signal. Demo it live if there's time: reset to `BASE`, branch, commit, merge each way.
 
-```
-*   Merge feature/greeting-tweaks-noff into main
-|\
-| * test: cover empty-string input        (cherry-picked SHAs differ from the original)
-| * docs: document how to run the sample app
-| * refactor(app): add docstring to greet()
-* | main: add README note before merge
-|/
-* BASE
-```
-
-**Key teaching point:** the graphs *look* similar because in both cases `main` has diverged. The distinction that matters is what would happen if `main` *hadn't* moved:
-
-- Plain `merge` would fast-forward (no merge commit, linear history).
-- `--no-ff` would still force a merge commit (preserves the "this was a branch" signal).
-
-Demo this explicitly in the wrap-up if students didn't catch it: reset to `BASE`, branch, commit, then merge each way *without* moving `main`.
+> **Note on `--all` graphs:** the warm-up branch `we-do-greeting-polish` still exists, so its three
+> commits show up in every `git log --all` from here on. That's expected — don't let students think
+> they broke something.
 
 ### Part C — linear rebase
 
-After Part C, `git log --graph --decorate --oneline --all` should show a **linear** history:
+**Step 9 is the load-bearing step:** after `git reset --hard BASE`, students must put a **new**
+commit on `main` (redo the README note). If they skip it, `main` equals the feature branch's fork
+point and `git rebase main` prints **"Current branch feature/greeting-tweaks is up to date"** — a
+silent no-op with no new SHAs. A student reporting that message skipped the note redo.
+
+After Part C, `git log --graph --decorate --oneline` should show a **linear** history:
 
 ```
 * (HEAD -> main, feature/greeting-tweaks) test: cover empty-string input
 * docs: document how to run the sample app
 * refactor(app): add docstring to greet()
-* main: add README note before merge
-* (BASE) <earlier commits>
+* chore: unrelated note on main
+* (BASE) <the Phase 1 focused commit>
 ```
 
 No merge commit. No diverging branch. `main` and `feature/greeting-tweaks` point to the same commit.
@@ -202,12 +136,18 @@ The feature commits will have **new SHAs** because rebase rewrites them. Student
 
 ## Stretch keys
 
-> Both are optional, only attempted if a room finishes early. In `lab.md` the **conflict** stretch
-> is #1 (higher value for this lab) and the **reconstruct-`git diff`** stretch is #2 (deeper dive).
+> All three are optional, only attempted if a room finishes early. In `lab.md` the **conflict**
+> stretch is #1 (higher value for this lab), the **reconstruct-`git diff`** stretch is #2 (deeper
+> dive), and **cherry-pick** is #3.
 
 ### 1. Conflict resolution
 
-Both branches inserted a different line just above `message =` inside `greet()`, so the conflict lands there. During the rebase, `HEAD` is `main` (the comment) and the incoming side is the feature commit (the docstring):
+**The setup matters:** after Part C, `main` and `feature/greeting-tweaks` point at the same commit,
+so a rebase would fast-forward and never conflict. Step 1's `git reset --hard HEAD~3` on `main`
+re-creates the divergence (the three feature commits stay on the feature branch). A student who
+skipped it will report "Successfully rebased" with no conflict — send them back to step 1.
+
+Both branches then insert a different line just above `message =` inside `greet()`, so the conflict lands there. During the rebase, `HEAD` is `main` (the comment) and the incoming side is the feature commit (the docstring):
 
 ```
 def greet(name: str, shout: bool = False) -> str:
@@ -240,6 +180,27 @@ diff /tmp/old.txt /tmp/new.txt
 ```
 
 Goal: students see that `git diff` is not a black box — it's a tree walk + blob comparison. The mental model from the We-do is now operational.
+
+### 3. Cherry-pick one commit
+
+```bash
+git switch main && git reset --hard BASE
+git log --oneline feature/greeting-tweaks   # student picks any of the feature SHAs
+git cherry-pick <SHA>
+git log --oneline -2
+```
+
+Expected observations:
+
+- The commit lands on `main` as a **new commit with a different SHA** — same change, new identity
+  (different parent and committer timestamp, so a different object).
+- `feature/greeting-tweaks` is **untouched** — cherry-pick copies, it doesn't move.
+- If the student picks the *second or third* feature commit, the pick still applies cleanly because
+  the seed's three changes are in three different files — a nice aside: cherry-pick replays a
+  **change (diff)**, not a snapshot.
+
+Tie it back to the object model: like rebase, cherry-pick manufactures new commit objects; the
+original is still reachable from the source branch.
 
 ## Wrap-up & questions crib
 

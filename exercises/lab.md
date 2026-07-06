@@ -164,7 +164,7 @@ done out of order.
 Now work the two phases on your own. **Do Phase 1 first** — Phase 2 resets history and would erase
 Phase 1's checkpoint commit if done out of order.
 
-### Phase 1 — spelunk the object graph, then make a focused commit
+### Phase 1 — whodunnit, then a focused commit
 
 The warm-up left you on a scratch branch — first return to a clean `main`:
 
@@ -172,16 +172,20 @@ The warm-up left you on a scratch branch — first return to a clean `main`:
 git switch main
 ```
 
-Now work through these against the existing history. Write down each answer.
+Jot each answer in `NOTES.local.md` as you go.
 
-1. **`app.py`'s own history.** Run `git log --oneline -- sample-app/app.py` to see every commit that touched it. Identify the one that added **`--shout`** support and the one that added **`farewell()`** — you'll reuse both below.
-2. **Which commit introduced `greet()`?** Use `git log -S "def greet" --oneline -- sample-app/app.py`. Surprised where it lands? Read the full message with `git show --no-patch <SHA>`.
-3. **Which commit introduced `farewell()`?** Use `git log -S "def farewell" --oneline -- sample-app/app.py`. What's the SHA, and how does it differ from the commit you found in #2?
-4. **Blob SHA before `farewell()` existed.** Using the `--shout` commit from #1, read `app.py`'s blob SHA at that point with `git ls-tree <shout-SHA> sample-app/app.py`. Print it with `git cat-file -p <blob-SHA>` — confirm `farewell()` isn't there yet, and that it matches `git show <shout-SHA>:sample-app/app.py`.
-5. **Tree shape at that commit.** Using *only* `git cat-file` and `git ls-tree`, list every file tracked at the `--shout` commit. How many total? Compare against `git ls-tree -r --name-only <shout-SHA>`.
-6. **Whodunnit?** Open `sample-app/app.py` and spot the suspicious line inside `farewell()` — the one swearing it's *"definitely safe to ship."* Run `git blame sample-app/app.py` and read off the **author** of that line. Who do you have to thank? Then `git log -p -L :farewell:sample-app/app.py` to read the full story of those lines — blame finds the *who*, log finds the *why*.
-7. **Make a focused commit.** Add your name to `sample-app/README.md` as a "lab participant" line. Commit it with a clear message. Then `git cat-file -p HEAD` and confirm that only the `README.md` blob entry changed (not the `app.py` blob, not the `tests/` tree).
-8. **Sanity check.** Run `scripts/verify-lab.sh` — it should print a green ✅ if your focused commit is correct. Run this **now**, before Phase 2.
+**Whodunnit? (1–4)**
+
+1. Open `sample-app/app.py` and find the suspicious line inside `farewell()` — the one promising it's *"definitely safe to ship."*
+2. Run `git blame sample-app/app.py`. Every line shows its **commit · author · date**.
+3. **Who wrote that line?** Read the author off the blame output. Anyone you recognise…?
+4. Read the full story of those lines: `git log -p -L :farewell:sample-app/app.py`. Blame finds the *who*, log finds the *why* — together they're how you reconstruct the reasoning behind any line.
+
+**Focused commit + gate (5–7)**
+
+5. **Make a focused commit.** Add your name to `sample-app/README.md` as a "lab participant" line. Commit it with a clear message.
+6. `git cat-file -p HEAD` → confirm that **only the `README.md` blob entry changed** (not the `app.py` blob, not the `tests/` tree).
+7. **The gate.** Run `scripts/verify-lab.sh` — it should print all-green ✅. Run this **now**, before Phase 2: Phase 2 rewrites history, and the "HEAD touched only README" check no longer holds afterwards.
 
 ### Phase 2 — branch, merge, and rebase
 
@@ -197,34 +201,38 @@ git rev-parse --short HEAD    # note this SHA — the instructions call it BASE
 
 1. `git switch -c feature/greeting-tweaks` from `main`.
 2. Run `scripts/seed-messy-state.sh`. Confirm `git status` shows three changed files.
-3. Use `git add -p` to produce **three separate commits**, each containing **one** of the three changes. Write a sensible message for each — imagine the reviewer needs to skim them in 30 seconds.
+3. Use `git add -p` to produce **three separate commits**, each containing **one** of the three changes. Write a sensible message for each — imagine the reviewer needs to skim them in 30 seconds. (Lumped everything into one commit? Redo with `git reset HEAD~1 --soft` and try again.)
 
-**Part B — compare merge styles.**
+**Part B — a real merge commit.**
 
-4. Branch a *second* feature branch off the same baseline: `git switch main && git switch -c feature/greeting-tweaks-noff`.
-5. Cherry-pick all three commits onto it: `git cherry-pick feature/greeting-tweaks~2..feature/greeting-tweaks`.
-6. Create a small unrelated commit directly on `main` (edit `sample-app/README.md`, commit it) — this prevents fast-forwards.
-7. Merge the first branch with `git merge feature/greeting-tweaks` (since `main` has moved, this *cannot* fast-forward — Git creates a merge commit). Then `git cat-file -p HEAD` and **count the `parent` lines: two** — your own three-way merge commit from the slide.
-8. Reset `main` back to `BASE` plus your README commit: `git reset --hard <SHA-of-README-commit>`.
-9. Now merge the *other* branch: `git merge --no-ff feature/greeting-tweaks-noff -m "Merge feature/greeting-tweaks-noff into main"`.
-10. Run `git log --graph --decorate --oneline --all`. **Sketch the graph in `NOTES.local.md`.** What's the same? What's different? Where does each style help or hurt?
+4. From Part A, `feature/greeting-tweaks` is **three commits ahead**; `main` still sits at your Phase 1 commit.
+5. Put one small **unrelated** commit directly on `main` — edit a file the seed didn't touch, e.g. the root `README.md`, then `git commit -am "chore: unrelated note on main"`. Now the branches have **diverged**, so a fast-forward is impossible.
+6. `git merge feature/greeting-tweaks` — Git can't fast-forward, so it records a **merge commit**.
+7. `git cat-file -p HEAD` and **count the `parent` lines: two** — your own three-way merge commit from the slide. `git log --graph --decorate --oneline --all` shows the diamond where the branches rejoin.
+8. **Sketch the graph in `NOTES.local.md` and keep it** — in Part C you'll fold in the same feature work with a *linear* history instead.
 
 **Part C — linear rebase.**
 
-11. Reset once more: `git switch main && git reset --hard BASE`. Re-apply your README commit on top.
-12. `git switch feature/greeting-tweaks && git rebase main`. The three feature commits should now sit on top of the new `main` tip, with no merge commit. (Notice the feature commits got **new SHAs** — rebase rewrote them.)
-13. `git switch main && git merge feature/greeting-tweaks` — this *will* fast-forward. The history is linear.
-14. Compare your final `git log --graph --decorate --oneline --all` to the reference walk-through in [`instructor-notes/lab-key.md`](../instructor-notes/lab-key.md). Don't peek before you've finished Part C.
+9. Reset once more: `git switch main && git reset --hard BASE` — this drops Part B's merge **and** its note commit. Then **redo the note commit** (edit the root `README.md` again, `git commit -am "chore: unrelated note on main"`) so `main` is ahead of the feature branch's fork point — without it, the rebase has nothing to do.
+10. `git switch feature/greeting-tweaks && git rebase main`. The three feature commits should now sit on top of the new `main` tip, with no merge commit. (Notice the feature commits got **new SHAs** — rebase rewrote them.)
+11. `git switch main && git merge feature/greeting-tweaks` — this *will* fast-forward. The history is linear.
+12. Compare your final `git log --graph --decorate --oneline --all` to the reference walk-through in [`instructor-notes/lab-key.md`](../instructor-notes/lab-key.md). Don't peek before you've finished Part C.
 
 ## Stretch challenges `[OPTIONAL]`
 
 Only if you finish the two phases early. The first is the higher-value one for this lab; the second
-is a deeper object-model dive for the curious.
+is a deeper object-model dive for the curious; the third adds one more everyday tool to your belt.
 
-**1. Rebase through a conflict.** Re-do Part C, but first add a commit on `main` that edits the **same line** inside `greet()` that one of your feature commits did (the seed script's docstring change). Same-region edits on both branches are what *forces* a conflict:
+**1. Rebase through a conflict.** After Part C, `main` and `feature/greeting-tweaks` point at the
+**same commit** — a rebase would do nothing. Diverge them again first, then make `main` collide
+with the feature's docstring commit. Same-region edits on both branches are what *forces* a conflict:
 
 ```bash
+# 1 — pull main back behind the feature branch
 git switch main
+git reset --hard HEAD~3     # the 3 feature commits leave main but stay on feature/greeting-tweaks
+
+# 2 — edit the same spot the feature's docstring commit touches
 python3 - <<'PY'
 from pathlib import Path
 p = Path("sample-app/app.py")
@@ -242,6 +250,22 @@ git commit -am "main: add a comment inside greet()"
 Then `git switch feature/greeting-tweaks && git rebase main` — the feature commit that added a docstring to `greet()` touches the same spot, so Git halts with a conflict on that commit. Open `sample-app/app.py`, resolve (keep both the comment and the docstring), `git add sample-app/app.py`, then `git rebase --continue`. Confirm linear history with `git log --graph --decorate --oneline --all`. If you'd rather bail, `git rebase --abort` is also a valid exit.
 
 **2. Diff without `git diff` (deeper dive).** Pick two adjacent commits in the seeded history. Using only `git cat-file` and `git ls-tree`, determine: which files exist in commit B but not A? For files in both, which blob SHAs differ? For the changed blobs, print both and identify the changed line(s) by eye. You're reconstructing what `git diff` does internally — a tree walk plus a blob comparison. Confirm with `git diff <A> <B>`.
+
+**3. Cherry-pick one commit.** Grab a **single** commit from a branch without merging the whole thing — and watch it land as a **brand-new commit**:
+
+```bash
+git switch main && git reset --hard BASE    # main is behind your feature work again
+git log --oneline feature/greeting-tweaks   # pick one commit's SHA
+
+git cherry-pick <SHA>        # replays just that change onto main as a new commit
+git log --oneline -2         # same change — NEW SHA
+
+# other forms — pick what you need:
+git cherry-pick <A> <B>      # a hand-picked few
+git cherry-pick <A>~3..<A>   # a contiguous range
+```
+
+`cherry-pick` doesn't *move* a commit — it **replays the change as a new commit** on your current branch; `feature/greeting-tweaks` keeps its original. This is how you grab a single fix without merging a whole branch.
 
 ## Wrap-up & questions (15 min)
 
