@@ -27,7 +27,7 @@ One continuous ~3-hour lab (09:00–12:00) that interleaves Git's object model w
 
 - **Introduction** — welcome to the series and how the labs work
 - **The Oatmakers story** — a fictional client (eight Ignition sites, zero CI/CD) sets the stage for why this series exists
-- **Teaching** — why version control matters, the basic command vocabulary (incl. `.gitignore`), and the object model (commit/tree/blob)
+- **Teaching** — what Git is, the object model (blob/tree/commit/branch/HEAD), the merge · rebase · cherry-pick workflows, remotes & tags, the command vocabulary, `git blame`/`git reset`, and `.gitignore`
 - **We-do** — the instructor live-codes the moves: `add`/`commit`, `switch`, branch, merge (fast-forward vs `--no-ff`), rebase, and recovery
 - **You-do (breakout rooms)** — a guided warm-up, then a solo spelunk-then-build exercise, plus optional stretch challenges
 - **Wrap-up & questions**

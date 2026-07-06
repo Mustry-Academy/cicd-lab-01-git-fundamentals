@@ -56,7 +56,7 @@ When you understand that all three are just pointers/snapshots into the same obj
 Three places this mental model pays off:
 
 1. **Rebase conflicts.** Rebase rewrites commits by replaying their diffs onto a new base. When you understand that each commit is a snapshot tied to a tree, you understand why moving a commit can produce a conflict — you're trying to apply *this tree change* on top of *a different starting tree*.
-2. **Recovery.** "I deleted my branch" doesn't mean the commits are gone. The commit objects are still in `.git/objects/`. `git reflog` shows you every HEAD movement in the last 30 days. Find the SHA, `git checkout <SHA>`, you're back.
+2. **Recovery.** "I deleted my branch" doesn't mean the commits are gone. The commit objects are still in `.git/objects/`. `git reflog` shows you every HEAD movement from the last 90 days (Git's default). Find the SHA, `git checkout <SHA>`, you're back.
 3. **`git mv` is a lie.** It's literally `mv + git add` + `git add` of the removal. The blob SHA is unchanged. Git infers renames by content similarity at *diff time*, not commit time.
 
 If you've ever wondered why a file you "moved" shows up as one deletion and one addition in `git log`, this is why — Git doesn't track renames; it detects them.

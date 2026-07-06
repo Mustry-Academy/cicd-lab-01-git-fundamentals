@@ -30,12 +30,13 @@ You should leave this lab able to:
 Because this is the first class, the instructor opens with the bigger picture before we touch Git.
 
 1. **Welcome & introductions.** Quick round-the-room: name, role, and one thing you want out of this course. 
-2. **What this course is about.** This is a **CI/CD course for Ignition**. That means we're going to go deep into git, CI/CD, but it will be applied to Ignition and made very practical for that stance. This is not a pur Git course or a pure CI/CD course, it's really meant to give you practical tools in your day to day work 
-3. **How the series fits together.** A rough map of where we're headed: A view on the calendar
-4. **The Oatmakers story.** After the introduction slides, present [`slides/oatmakers-story.html`](../slides/oatmakers-story.html): one fictional client — Oatmakers, eight Ignition sites, zero CI/CD — whose troubles set the stage for *why* CI/CD is worth adding to an Ignition workflow. The whole series follows this story; each day the map heals a little more.
-5. **How the labs work.** Each lab follows the same rhythm: **Teaching**, **We-do** (instructor live-codes), **You do** (breakout rooms), then a **debrief**. There are optional stretch challenges if you finish early. Notes you take in `NOTES.local.md` are gitignored and yours to keep. We have 8 labs in total, where the last one will be a bigger challenge for you to fulfill in breakout rooms, where we will be there to guide you. Each lab has it's own git repo, so you will always have a fresh start, even if you where not able to complete the previous lab. 
-6. **Breakout room rules** Sam and Jasper will float around breakout rooms to see who could use some help. We ask of everyone to share there screen at the same time in such breakout rooms, which will create the ability for us to have a 'look over you shoulder' kind of class. 
-7. **AI Agents** Ofcourse, AI will be able to probably one-shot these labs, but we would challenge you to do this class as much as possible without it, so you actually get the fundamentals, and then you'll be able to steer AI much better when building this out for yourself.
+2. **What this course is about.** This is a **CI/CD course for Ignition**. That means we're going to go deep into git, CI/CD, but it will be applied to Ignition and made very practical for that setting. This is not a pure Git course or a pure CI/CD course, it's really meant to give you practical tools in your day-to-day work. 
+3. **How the series fits together.** A rough map of where we're headed — 8 labs, from Git fundamentals to the capstone (Lab 08).
+4. **Fork the repo.** Every lab repo gets forked to your own GitHub account first: Fork on GitHub → clone *your fork*. Working in your fork means you can commit, branch and push freely without colliding with anyone else.
+5. **How the labs work.** Each lab follows the same rhythm: **Teaching**, **We-do** (instructor live-codes), **You-do** (breakout rooms), then a **debrief**. There are optional stretch challenges if you finish early. Notes you take in `NOTES.local.md` are gitignored and yours to keep. We have 8 labs in total, where the last one (the capstone) will be a bigger challenge for you to fulfill in breakout rooms, where we will be there to guide you. Each lab has its own git repo, so you will always have a fresh start, even if you were not able to complete the previous lab. 
+6. **Breakout room rules** Sam and Jasper will float around breakout rooms to see who could use some help. We ask everyone to share their screen at the same time in the breakout rooms, which gives us a 'look over your shoulder' kind of class. 
+7. **AI Agents** Of course, AI will probably be able to one-shot these labs, but we would challenge you to do this class as much as possible without it, so you actually get the fundamentals, and then you'll be able to steer AI much better when building this out for yourself.
+8. **The Oatmakers story.** After the introduction slides, present [`slides/oatmakers-story.html`](../slides/oatmakers-story.html): one fictional client — Oatmakers, eight Ignition sites, zero CI/CD — whose troubles set the stage for *why* CI/CD is worth adding to an Ignition workflow. The whole series follows this story; each day the map heals a little more.
 
 
 ## Teaching: Introductions to git (45 min)
@@ -179,8 +180,8 @@ Break into rooms. **Share your screen** so Sam and Jasper can float and look ove
 Open a scratch terminal and a scratch notebook (`NOTES.local.md` is gitignored).
 
 We start with a short **guided warm-up together**, then you go solo through two phases on the same
-clone. **Do Phase 1 first** — Phase 2 resets history and would erase Phase 1's checkpoint commit if
-done out of order.
+clone. **Do Phase 1 first** — its gate (`scripts/verify-lab.sh`) checks that `HEAD` is your focused
+commit, and Phase 2's merges and resets break that check, so it only passes before Phase 2.
 
 ### Warm-up (together) — trace a commit, then stage by hunk
 
@@ -205,8 +206,8 @@ done out of order.
 
 ### Solo
 
-Now work the two phases on your own. **Do Phase 1 first** — Phase 2 resets history and would erase
-Phase 1's checkpoint commit if done out of order.
+Now work the two phases on your own. **Do Phase 1 first** — its gate (`scripts/verify-lab.sh`)
+checks that `HEAD` is your focused commit, and Phase 2's merges and resets break that check.
 
 ### Phase 1 — whodunnit, then a focused commit
 
@@ -277,6 +278,7 @@ git switch main
 git reset --hard HEAD~3     # the 3 feature commits leave main but stay on feature/greeting-tweaks
 
 # 2 — edit the same spot the feature's docstring commit touches
+#     (the python block below does it for you — or just make the edit by hand)
 python3 - <<'PY'
 from pathlib import Path
 p = Path("sample-app/app.py")

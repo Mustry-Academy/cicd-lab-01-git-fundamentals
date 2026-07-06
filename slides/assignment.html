@@ -188,7 +188,7 @@ body{
     <ul class="checks" style="max-width:920px">
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Share your screen</b> in your breakout room. This is a "look over your shoulder" class, so we'll drop in where it's useful.</span></li>
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Open a scratch notebook.</b> <span class="inlinecode">NOTES.local.md</span> is gitignored, so write your answers there as you go.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Do Phase 1 first.</b> Phase 2 resets history and would erase Phase 1's checkpoint commit if you do it out of order.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Do Phase 1 first.</b> Its gate checks that <span class="inlinecode">HEAD</span> is your focused commit — Phase 2's merges and resets break that check, so it only passes before Phase 2.</span></li>
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Try it without AI.</b> The goal is the fundamentals in your fingers, so you'll steer AI far better afterwards.</span></li>
     </ul>
     <div class="goal good-g">

@@ -579,14 +579,14 @@ body{
         <div class="pn">DAY 4</div>
         <h4>Ignition in the real world</h4>
         <p>Multi-gateway promotion, configuration per environment, secrets management, and the capstone.</p>
-        <div class="labs">Labs 06 + 07</div>
+        <div class="labs">Labs 06 + 07 + 08</div>
       </div>
     </div>
     <p class="lead reveal" data-step="4" style="margin-top:22px">Each day ends with the same map of Oatmakers. <b>Watch it heal.</b></p>
   </div>
 
   <div class="controls on-light">
-    <span class="lead-step" id="plan-step">Four days. Two labs per day. One company to fix.</span>
+    <span class="lead-step" id="plan-step">Four days. Eight labs. One company to fix.</span>
     <button class="btn" data-act="back">&#9664; Back</button>
     <button class="btn primary" data-act="next">Next &#9654;</button>
   </div>
@@ -689,7 +689,7 @@ body{
     <div class="labrow">
       <span class="oat-chip reveal" id="chips-day4-a">Lab 06 · Multi-gateway deploys</span>
       <span class="oat-chip reveal" id="chips-day4-b">Lab 07 · Secrets and the database</span>
-      <span class="oat-chip gold reveal" id="chips-day4-c">Capstone · you build this whole map yourself</span>
+      <span class="oat-chip gold reveal" id="chips-day4-c">Lab 08 · Capstone · you build this whole map yourself</span>
     </div>
   </div>
 
@@ -1182,7 +1182,7 @@ controllers.pains=htmlCtrl(4,'pains-step',[
 
 /* ---------- slide 8: the plan ---------- */
 controllers.plan=htmlCtrl(6,'plan-step',[
-  'Four days. Two labs per day. One company to fix.',
+  'Four days. Eight labs. One company to fix.',
   'Day 1: get the history and the branching right. The hotfix week, replayed calmly.',
   'Day 2: automate the checking. A robot reviews every change before a human does.',
   'Day 3: automate the shipping, the Ignition way.',
@@ -1225,7 +1225,7 @@ controllers.day4=worldCtrl('viz-day4','day4-step',DAY4_BASE,[
   {add:['ladder'],t:'Day 4: changes climb an environment ladder. local, dev, test, prod. Production is the last rung, not the first.'},
   {add:['vault'],t:'Each environment keeps its own credentials. None of them live in Git.'},
   {add:['fan'],badges:'final',badgeOpts:{stagger:120},t:'One promotion, eight identical sites.'},
-  {t:'And then you run the whole map yourself, end to end. That is the capstone.'}
+  {t:'And then you run the whole map yourself, end to end. That is Lab 08, the capstone.'}
 ],(s)=>{chip('chips-day4-a',s>=4);chip('chips-day4-b',s>=4);chip('chips-day4-c',s>=4);});
 
 /* ---------- slide 13: finale ---------- */

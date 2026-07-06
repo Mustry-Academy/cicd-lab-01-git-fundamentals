@@ -14,6 +14,13 @@ set -euo pipefail
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 cd "$REPO_ROOT"
 
+# python3 on macOS/Linux; plain python on Windows Git Bash
+PY_BIN="$(command -v python3 || command -v python || true)"
+if [ -z "$PY_BIN" ]; then
+  echo "ERROR: python3 (or python) is required to seed the working tree."
+  exit 1
+fi
+
 if ! git diff --quiet || ! git diff --cached --quiet; then
   echo "ERROR: working tree or index is not clean."
   echo "Stash or commit your changes first:"
@@ -22,7 +29,7 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
 fi
 
 # --- 1. Docstring on greet() -------------------------------------------------
-python3 - <<'PY'
+"$PY_BIN" - <<'PY'
 from pathlib import Path
 
 p = Path("sample-app/app.py")
