@@ -19,7 +19,7 @@ the lens for every workflow move you make.
 
 You should leave this lab able to:
 
-- Understanding the basic commands of git, `git init`, `git add`, `git commit`, `git push`, `git pull`, `git status`, `git branch`, `git switch` (and the older `git checkout`), `git merge`, `git cherry-pick`
+- Understanding the basic commands of git, `git init`, `git add`, `git commit`, `git push`, `git pull`, `git status`, `git branch`, `git switch` (and the older `git checkout`), `git merge`, `git cherry-pick`, `git blame`, `git tag`
 - Understand what `.gitignore` does and why Git tracks everything by default
 - Actually understand what git is doing under the hood, how are blobs linked to commits, how every commit is a snapshot
 - Choose between **merge** (fast-forward vs `--no-ff`) and **rebase** deliberately, and explain the tradeoffs
@@ -39,8 +39,8 @@ Because this is the first class, the instructor opens with the bigger picture be
 
 ## Teaching: Introductions to git (45 min)
 
-The instructor teaches the foundations. This is the conceptual half — we *do* the moves in the
-We-do that follows.
+The instructor teaches the foundations from [`slides/teaching.html`](../slides/teaching.html).
+This is the conceptual half — we *do* the moves in the We-do that follows.
 
 ### Setup (do this first)
 
@@ -54,18 +54,59 @@ You should see a `sample-app/` directory with several commits already in its his
 `git log --oneline` and confirm you see at least five commits, and that the seed script is
 available.
 
-### Why version control matters
+### What is Git, and why it matters
 
-1. **Pre-VC pain.** `FINAL_v2_actual_REAL.zip`, lost work, no audit trail. Anyone who's been in industry long enough has a story.
-2. **What a Version Control System (VCS) gives you.** History, blame, branching, safe undo. 
-3. **Centralized vs distributed.** Why Git won. Why "every clone is a full backup" matters when the central server is down.
-4. **Live folder-vs-repo contrast.** `mkdir scratch && cd scratch && echo hi > a.txt`. Then the same with `git init`. What's tracked? What isn't? What happens when you change `a.txt`?
+Git is a **Version Control System (VCS)** — software that tracks and manages changes to files over
+time. The de-facto standard: 95%+ market share, with a huge ecosystem of GUIs, hosting services and
+tooling built on top.
+
+- **What Git does for you:** track changes across many files, compare versions of a project,
+  time-travel back to old versions, revert, collaborate and share changes, combine changes.
+- Open with a war story — `FINAL_v2_actual_REAL.zip`, lost work, no audit trail. Anyone who's been
+  in industry long enough has one.
 
 Reference reading: [`docs/why-version-control.md`](../docs/why-version-control.md).
 
+### Under the hood — the object model (animated slides)
+
+The thread for the rest of the lab: *every workflow command is really a manipulation of commits,
+trees, and blobs.* Keep [`docs/git-object-model.md`](../docs/git-object-model.md) open as a cheat
+sheet.
+
+- **Blobs — Git is a key-value store.** `.git/objects` stores file *contents*: the key is a hash of
+  the content, and a blob has **no filename**. Identical content is stored once.
+- **Trees — where filenames live.** A directory listing that points to blobs and sub-trees by hash.
+- **Commits — snapshots, chained.** A commit points to a *single* tree (a **full snapshot**) and to
+  its parent; unchanged blobs and sub-trees are reused, never re-stored.
+- **Branches — movable pointers.** Commits are immutable; a branch is just a readable name that
+  moves forward as you commit.
+- **HEAD — where you are.** The pointer to your current branch; `git switch` moves it, and the next
+  commit attaches wherever it points.
+
+### The workflows, on the graph (animated slides)
+
+- **Merge.** When `main` hasn't moved, merging is a **fast-forward** — the pointer slides up, no new
+  commit. When history has **diverged**, Git does a **three-way merge** and records a **merge commit
+  with two parents**. Same-line edits on both sides → a conflict you resolve by hand.
+- **Rebase.** Re-applies your commits onto the new tip as **brand-new commits** (new SHAs). No merge
+  commit — linear history.
+- **Cherry-pick.** Copies a *single* commit's change onto your branch as a new commit; the source
+  branch keeps its original.
+
+### Remotes and tags
+
+- **Remotes.** Git is **distributed** — every clone is a full copy of the history. A remote (usually
+  `origin`) is just another repo you sync with: `clone` copies it down, `push` sends your commits up,
+  `pull` brings theirs down.
+- **Tags.** A ref that *doesn't* move — a permanent bookmark, which is how you mark a **release**.
+  Lightweight (`git tag v1.2`) vs annotated (`git tag -a v1.2 -m "Release 1.2"` — use this for
+  releases). Push them explicitly: `git push origin v1.2`. Tags name the exact commit you shipped;
+  they'll drive real deploys in later labs.
+
 ### The basic command vocabulary
-A one-line tour of the commands you'll use every day — anchored to the folder-vs-repo demo above
-so each one is concrete, not a glossary entry:
+
+A one-line tour — now that you know what's underneath, the commands are just verbs for moving these
+objects and pointers around:
 
 - `git init` — turn a plain folder into a repo (creates `.git/`).
 - `git clone` — copy a remote repo (and its full history) to your machine.
@@ -76,7 +117,21 @@ so each one is concrete, not a glossary entry:
 - `git checkout` / `git switch` — move `HEAD` to another branch or commit. (`switch` is the modern, safer spelling for branches.)
 - `git merge` — combine another branch's work into yours.
 - `git cherry-pick` — copy a single commit onto your current branch.
+- `git tag` — pin a permanent name to a commit; how you mark a **release**.
 - `git push` / `git pull` — send / receive commits to and from a remote. We **name** these now; we use them for real in later labs.
+
+> **Note:** most students will drive Git from VS Code's Source Control panel, which wraps these
+> commands in buttons. Teach the CLI so they understand what the buttons actually *do* — and
+> reassure them the UI handles the everyday flow; the terminal is for when it doesn't.
+
+### Inspecting & undoing — `git blame` and `git reset`
+
+- **`git blame`** — annotates every line of a file with the commit, author and date that last
+  touched it. Read-only and safe; answers "who do I ask about this line?". You'll use it in the
+  You-do.
+- **`git reset --hard`** — moves the current branch pointer **and** overwrites your working tree to
+  match; uncommitted changes are **gone, with no undo**. Plain `reset` (`--mixed`) and `--soft`
+  keep your edits. Unsure? `git stash` first — that's your safety net.
 
 ### `.gitignore` — telling Git what *not* to track
 
@@ -89,19 +144,6 @@ like `NOTES.local.md`.
 - `git status` shows **untracked** files (Git sees them, you haven't added them) separately from
   **ignored** files (Git pretends they aren't there). Knowing the difference saves you from the
   classic "why did my commit include `.venv/`?" mistake.
-
-### The object model, conceptually
-
-The thread for the rest of the lab: *every workflow command is really a manipulation of commits,
-trees, and blobs.* Keep [`docs/git-object-model.md`](../docs/git-object-model.md) open as a cheat
-sheet.
-
-- **A commit is a tree.** Commits point to a *single* tree; trees point to blobs and sub-trees;
-  blobs are *just* content (no filename). The filename lives in the tree entry.
-- **Content-addressed.** An object's SHA *is* its content. Identical content is stored once;
-  unchanged files are never re-stored.
-- **The three pieces of working state:** **HEAD** (where you are), **refs** (named pointers like
-  `main`), and the **index** (the staging area between your working tree and the next commit).
 
 ## We-do (30 min)
 
