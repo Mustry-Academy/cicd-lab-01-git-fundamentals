@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lab 01 — Teaching: Introductions to git</title>
+<title>Lab 01: Teaching: Introductions to git</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -164,7 +164,7 @@ body{
 .divider .q em{font-style:normal;color:var(--peri2)}
 .divider .sub2{font-size:18px;color:#aebbcd;margin-top:18px;max-width:60ch;line-height:1.5}
 
-/* generic reveal — elements fade/rise in when .show is added */
+/* generic reveal: elements fade/rise in when .show is added */
 .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
 .reveal.show{opacity:1;transform:none}
 
@@ -247,16 +247,16 @@ body{
     <div class="on-dark brandrow">
       <img class="logo-img logo-lg" src="logos/OriginalLight.png" alt="Mustry Solutions">
     </div>
-    <div class="stage on-dark">Lab 01 · 09:30 – 10:15</div>
+    <div class="stage on-dark">Lab 01 · 09:30-10:15</div>
   </div>
 
   <div class="cover">
     <div class="eyebrow">Teaching · 45 min</div>
     <div class="big">Introductions to <em>git</em>.</div>
-    <div class="sub">The conceptual half. We lay down what Git is, how it actually stores your project under the hood, and the workflows — merge, rebase, cherry-pick — then we <em style="color:#fff;font-style:normal">do</em> the moves in the We-do that follows.</div>
+    <div class="sub">The conceptual half. We lay down what Git is, how it actually stores your project under the hood, and the workflows (merge, rebase, cherry-pick), then we <em style="color:#fff;font-style:normal">do</em> the moves in the We-do that follows.</div>
   </div>
 
-  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Lab 01 — Git Fundamentals</span></div>
+  <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>Lab 01 · Git Fundamentals</span></div>
 </section>
 
 <!-- 2 · WHAT IS GIT -->
@@ -271,16 +271,16 @@ body{
       <span class="num">01</span>
       <div>
         <div class="title">What is Git?</div>
-        <div class="lead">Git is a <b>Version Control System</b> (VCS) — software that tracks and manages changes to files over time.</div>
+        <div class="lead">Git is a <b>Version Control System</b> (VCS): software that tracks and manages changes to files over time.</div>
       </div>
     </div>
     <div class="split">
       <div>
-        <div class="stat"><span class="big">+95%</span><span class="lbl">market share — the world's most popular VCS</span></div>
+        <div class="stat"><span class="big">+95%</span><span class="lbl">market share, the world's most popular VCS</span></div>
         <div class="quote">
           <p>"Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency."</p>
           <p style="margin-top:10px">"Lightning fast, with a huge ecosystem of GUIs, hosting services, and command-line tools."</p>
-          <div class="src">— git-scm.com</div>
+          <div class="src">git-scm.com</div>
         </div>
       </div>
       <div class="does">
@@ -300,7 +300,7 @@ body{
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>The world's most popular VCS</span></div>
 </section>
 
-<!-- 3 · DIVIDER — HOW DOES GIT DO IT -->
+<!-- 3 · DIVIDER · HOW DOES GIT DO IT -->
 <section class="slide dark">
   <div class="topbar">
     <div class="on-dark brandrow"><img class="logo-img" src="logos/OriginalLight.png" alt="Mustry Solutions"></div>
@@ -314,7 +314,7 @@ body{
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>blobs → trees → commits → branches</span></div>
 </section>
 
-<!-- 4 · BLOBS — KEY/VALUE OBJECT STORE -->
+<!-- 4 · BLOBS · KEY/VALUE OBJECT STORE -->
 <section class="slide">
   <div class="topbar">
     <div class="brandrow"><img class="logo-img" src="logos/OriginalDark.png" alt="Mustry Solutions"></div>
@@ -325,7 +325,7 @@ body{
     <div class="sechead">
       <span class="num">02</span>
       <div>
-        <div class="title">Blobs — Git is a key-value store</div>
+        <div class="title">Blobs: Git is a key-value store</div>
         <div class="lead"><span class="mono">.git/</span> stores your file <b>contents</b> as objects. The <b>key</b> is a hash of the content; the <b>value</b> is the content itself.</div>
       </div>
     </div>
@@ -343,7 +343,7 @@ body{
         <div class="hashbadge reveal" data-step="2">716aef…</div>
       </div>
       <div class="store reveal" data-step="3">
-        <div class="sh">.git/objects — the key-value store</div>
+        <div class="sh">.git/objects: the key-value store</div>
         <div class="entry">
           <span class="key">716aef</span>
           <span class="val"><b>main.cpp's contents</b> <span class="blobtag">blob</span></span>
@@ -361,7 +361,7 @@ body{
 
     <div class="callout reveal" data-step="4" style="border-left:5px solid var(--navy)">
       <div class="lab" style="color:var(--blue)">The catch</div>
-      <p>A <b>blob is just content</b> — it has no filename. Identical content hashes to the same key, so it's stored <b>once</b>. So how does Git know that <code>716aef</code> is "main.cpp"?</p>
+      <p>A <b>blob is just content</b>, with no filename. Identical content hashes to the same key, so it's stored <b>once</b>. So how does Git know that <code>716aef</code> is "main.cpp"?</p>
     </div>
   </div>
 
@@ -381,7 +381,7 @@ body{
 
   <div class="stage-wrap">
     <div class="vtitle">Tree</div>
-    <p class="lead" style="text-align:center;margin:6px auto 0;color:#c4cfde">A <b style="color:#fff">tree</b> gives blobs their filenames — it's a directory listing that points to blobs and other trees by hash.</p>
+    <p class="lead" style="text-align:center;margin:6px auto 0;color:#c4cfde">A <b style="color:#fff">tree</b> gives blobs their filenames. It's a directory listing that points to blobs and other trees by hash.</p>
     <div class="viz" id="viz-tree"></div>
   </div>
 
@@ -401,7 +401,7 @@ body{
 
   <div class="stage-wrap">
     <div class="vtitle">Commits</div>
-    <p class="lead" style="text-align:center;margin:6px auto 0;color:#c4cfde">Every commit creates a <b style="color:#fff">new tree</b> (a complete snapshot) — and points to its <b style="color:#fff">parent</b>. Unchanged sub-trees are reused.</p>
+    <p class="lead" style="text-align:center;margin:6px auto 0;color:#c4cfde">Every commit creates a <b style="color:#fff">new tree</b> (a complete snapshot), and points to its <b style="color:#fff">parent</b>. Unchanged sub-trees are reused.</p>
     <div class="viz" id="viz-commit"></div>
   </div>
 
@@ -421,12 +421,12 @@ body{
 
   <div class="stage-wrap">
     <div class="vtitle">Branches</div>
-    <p class="lead" style="text-align:center;margin:6px auto 0;color:#c4cfde">Commit hashes aren't friendly. A <b style="color:#fff">branch</b> is just a movable pointer to a commit — a name you can read, that moves as you commit.</p>
+    <p class="lead" style="text-align:center;margin:6px auto 0;color:#c4cfde">Commit hashes aren't friendly. A <b style="color:#fff">branch</b> is just a movable pointer to a commit: a name you can read, that moves as you commit.</p>
     <div class="viz" id="viz-branch"></div>
   </div>
 
   <div class="controls">
-    <span class="lead-step" id="branch-step"><b>Commits are immutable. Branches are mutable</b> — each commit moves the current branch forward.</span>
+    <span class="lead-step" id="branch-step"><b>Commits are immutable. Branches are mutable.</b> Each commit moves the current branch forward.</span>
     <button class="btn" data-act="back">◀ Back</button>
     <button class="btn primary" data-act="next">Commit ▶</button>
   </div>
@@ -441,7 +441,7 @@ body{
 
   <div class="stage-wrap">
     <div class="vtitle">HEAD</div>
-    <p class="lead" style="text-align:center;margin:6px auto 0;color:#c4cfde">If a branch is a pointer to a commit, <b style="color:#fff">HEAD</b> is the pointer to <b style="color:#fff">where you are</b> — usually the branch you're currently on.</p>
+    <p class="lead" style="text-align:center;margin:6px auto 0;color:#c4cfde">If a branch is a pointer to a commit, <b style="color:#fff">HEAD</b> is the pointer to <b style="color:#fff">where you are</b>, usually the branch you're currently on.</p>
     <div class="viz" id="viz-head"></div>
   </div>
 
@@ -540,18 +540,18 @@ body{
     <div class="sechead">
       <span class="num">02</span>
       <div>
-        <div class="title">Tags — a ref that <em style="font-style:italic">doesn't</em> move</div>
-        <div class="lead">A branch moves forward as you commit. A <b>tag</b> is a name pinned to <b>one specific commit, forever</b> — a permanent bookmark. That's how you mark a <b>release</b>.</div>
+        <div class="title">Tags: a ref that <em style="font-style:italic">doesn't</em> move</div>
+        <div class="lead">A branch moves forward as you commit. A <b>tag</b> is a name pinned to <b>one specific commit, forever</b>: a permanent bookmark. That's how you mark a <b>release</b>.</div>
       </div>
     </div>
     <div class="split">
       <div class="does">
         <div class="hd">Lightweight tag</div>
-        <p style="font-size:14px;color:var(--txt);line-height:1.5;margin-bottom:12px">Just a name pointing at a commit — nothing more. Like a branch that never moves.</p>
+        <p style="font-size:14px;color:var(--txt);line-height:1.5;margin-bottom:12px">Just a name pointing at a commit, nothing more. Like a branch that never moves.</p>
         <div class="cmd" style="border:none;padding:6px 0"><code>git tag v1.2</code><span>pin <span class="mono">v1.2</span> to the current commit.</span></div>
       </div>
       <div class="does">
-        <div class="hd">Annotated tag <span style="color:var(--txt-faint);font-weight:400;text-transform:none;letter-spacing:0">— use this for releases</span></div>
+        <div class="hd">Annotated tag <span style="color:var(--txt-faint);font-weight:400;text-transform:none;letter-spacing:0">(use this for releases)</span></div>
         <p style="font-size:14px;color:var(--txt);line-height:1.5;margin-bottom:12px">A <b>full Git object</b>: stores who tagged it, when, a message, and can be GPG-signed.</p>
         <div class="cmd" style="border:none;padding:6px 0"><code>git tag -a v1.2 -m "Release 1.2"</code><span>a real object with author + message.</span></div>
       </div>
@@ -577,7 +577,7 @@ body{
       <span class="num">03</span>
       <div>
         <div class="title">The basic command vocabulary</div>
-        <div class="lead">One line each — now that you know what's underneath, the commands are just verbs for moving these objects and pointers around.</div>
+        <div class="lead">One line each. Now that you know what's underneath, the commands are just verbs for moving these objects and pointers around.</div>
       </div>
     </div>
     <div class="cmds">
@@ -590,20 +590,20 @@ body{
       <div class="cmd"><code>git add</code><span>stage a change for the next commit (into the <b>index</b>).</span></div>
       <div class="cmd"><code>git cherry-pick</code><span>copy a single commit onto your current branch.</span></div>
       <div class="cmd"><code>git commit</code><span>record the staged snapshot as a new commit.</span></div>
-      <div class="cmd"><code>git tag</code><span>pin a permanent name to a commit — how you mark a <b>release</b>.</span></div>
+      <div class="cmd"><code>git tag</code><span>pin a permanent name to a commit: how you mark a <b>release</b>.</span></div>
       <div class="cmd"><code>git push / pull</code><span>send / receive commits to a remote. <b>Named now, used in later labs.</b></span></div>
     </div>
 
     <div class="callout" style="margin-top:20px;border-left:5px solid var(--warn);padding:14px 20px">
       <div class="lab">Note</div>
-      <p>Most students will drive Git from <b>VS Code's Source Control panel</b>, which wraps stage, commit, branch, push and pull in buttons — the UI <b>abstracts these commands away</b>. Teach the CLI so they understand what those buttons actually <i>do</i>, but reassure them the UI handles the everyday flow; the terminal is for when it doesn't.</p>
+      <p>Most students will drive Git from <b>VS Code's Source Control panel</b>, which wraps stage, commit, branch, push and pull in buttons: the UI <b>abstracts these commands away</b>. Teach the CLI so they understand what those buttons actually <i>do</i>, but reassure them the UI handles the everyday flow; the terminal is for when it doesn't.</p>
     </div>
   </div>
 
   <div class="foot"><span>Mustry Academy · CI/CD for Ignition</span><span>The everyday Git toolkit</span></div>
 </section>
 
-<!-- 13 · INSPECTING & UNDOING — git blame / git reset -->
+<!-- 13 · INSPECTING & UNDOING · git blame / git reset -->
 <section class="slide">
   <div class="topbar">
     <div class="brandrow"><img class="logo-img" src="logos/OriginalDark.png" alt="Mustry Solutions"></div>
@@ -615,7 +615,7 @@ body{
       <span class="num">04</span>
       <div>
         <div class="title">Inspecting &amp; undoing</div>
-        <div class="lead">Two more commands you'll reach for often — one to find out <b>who</b> wrote a line, one to <b>throw work away</b>. Handle the second with care.</div>
+        <div class="lead">Two more commands you'll reach for often: one to find out <b>who</b> wrote a line, one to <b>throw work away</b>. Handle the second with care.</div>
       </div>
     </div>
 
@@ -625,11 +625,11 @@ body{
           <span class="cmd-name">git blame</span>
           <span class="pill safe">Read-only · safe</span>
         </div>
-        <div class="sub">Who wrote this line — and when?</div>
+        <div class="sub">Who wrote this line, and when?</div>
         <ul>
           <li><span class="d"></span>Annotates <b>every line</b> of a file with the commit, author and date that last touched it.</li>
           <li><span class="d"></span>Answers "<b>who do I ask about this?</b>" and "when did this line appear?"</li>
-          <li><span class="d"></span>Changes nothing — a pure inspection command.</li>
+          <li><span class="d"></span>Changes nothing: a pure inspection command.</li>
         </ul>
       </div>
       <div class="iucard danger">
@@ -637,11 +637,11 @@ body{
           <span class="cmd-name">git reset --hard</span>
           <span class="pill danger">Destructive</span>
         </div>
-        <div class="sub">Rewind the branch — and discard everything.</div>
+        <div class="sub">Rewind the branch, and discard everything.</div>
         <ul>
           <li><span class="d"></span>Moves the current <b>branch pointer</b> to a chosen commit…</li>
           <li><span class="d"></span>…<b>and</b> overwrites your working tree to match it.</li>
-          <li><span class="d"></span>Uncommitted changes are <b>gone — there is no undo</b>.</li>
+          <li><span class="d"></span>Uncommitted changes are <b>gone, there is no undo</b>.</li>
           <li><span class="d"></span>Plain <span class="mono">git reset</span> (<span class="mono">--mixed</span>) keeps your edits; <span class="mono">--hard</span> does not.</li>
         </ul>
         <div class="iunote warn"><span class="ic">⚠️</span><span>Want to keep your edits? Use <code>--soft</code> / <code>--mixed</code>. Unsure? <b>Use <code>git stash</code> first, this is your safety net.</b></span></div>
@@ -663,13 +663,13 @@ body{
     <div class="sechead">
       <span class="num">05</span>
       <div>
-        <div class="title"><span class="mono" style="font-size:34px">.gitignore</span> — what <em style="font-style:italic">not</em> to track</div>
+        <div class="title"><span class="mono" style="font-size:34px">.gitignore</span>: what <em style="font-style:italic">not</em> to track</div>
         <div class="lead">Git tracks <b>everything</b> by default. <span class="mono">.gitignore</span> is how you tell it what to leave alone.</div>
       </div>
     </div>
     <ul class="checks" style="max-width:900px">
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Build output, virtualenvs (<span class="mono">.venv</span>), <span class="mono">__pycache__</span>, <span class="mono">.pytest_cache/</span>, OS/editor junk, local notes like <span class="mono">NOTES.local.md</span>.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>This repo already ignores <span class="mono">.pytest_cache/</span></b> — that's why running <span class="mono">pytest</span> in the You-do won't pollute your focused commit.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>This repo already ignores <span class="mono">.pytest_cache/</span></b>, so running <span class="mono">pytest</span> in the You-do won't pollute your focused commit.</span></li>
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><span class="mono">git status</span> shows <b>untracked</b> files (Git sees them, you haven't added them) separately from <b>ignored</b> files (Git pretends they aren't there).</span></li>
     </ul>
     <div class="callout">
@@ -692,9 +692,9 @@ body{
     <div class="eyebrow">Now we make it real</div>
     <div class="title" style="max-width:22ch;color:#fff">In the lab, you'll <em style="font-style:normal;color:var(--peri2)">see</em> these objects with your own eyes.</div>
     <ul class="checks" style="max-width:900px;margin-top:22px">
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>We-do.</b> We crack open <span class="mono">.git/</span> live — <span class="mono">git cat-file -p</span> a commit, its tree, its blobs — and watch a commit produce a new tree + blob.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>We-do.</b> We crack open <span class="mono">.git/</span> live, running <span class="mono">git cat-file -p</span> on a commit, its tree, its blobs, and watch a commit produce a new tree + blob.</span></li>
       <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>You-do (breakout rooms).</b> You spelunk the object graph yourself, then practise <span class="mono">add&nbsp;-p</span>, branch, <b>merge</b>, and <b>rebase</b> on a real repo.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>The payoff.</b> Everything you just saw on these slides — blobs, trees, commits, branches, three-way merge — you'll trigger by hand and verify in <span class="mono">git log --graph</span>.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span><b>The payoff.</b> Everything you just saw on these slides (blobs, trees, commits, branches, three-way merge) you'll trigger by hand and verify in <span class="mono">git log --graph</span>.</span></li>
     </ul>
   </div>
 
@@ -733,7 +733,7 @@ window.addEventListener('keydown',e=>{
   if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();deck.scrollTo({top:(i-1)*window.innerHeight})}
   if(e.key==='Home'){deck.scrollTo({top:0})}
   if(e.key==='End'){deck.scrollTo({top:slides.length*window.innerHeight})}
-  // Left/Right ONLY step the current slide's animation — they never change slides.
+  // Left/Right ONLY step the current slide's animation; they never change slides.
   if(e.key==='ArrowRight'){e.preventDefault(); if(bound[i])bound[i].go(1);}
   if(e.key==='ArrowLeft'){e.preventDefault(); if(bound[i])bound[i].go(-1);}
 });
@@ -825,7 +825,7 @@ function bindControls(slideEl,ctrl){
   const L=[['📁 app',60,90,'gfolder'],['📁 src',110,140,'gfolder'],['📄 secret.cpp',160,188,'gfile'],['📄 main.cpp',160,232,'gfile'],
            ['📁 test',110,282,'gfolder'],['📄 test_1.cpp',160,330,'gfile'],['📄 test_2.cpp',160,374,'gfile'],['📄 run.sh',110,424,'gfile']];
   L.forEach(([t,x,y,c])=>{el('text',{class:c,x,y},listing).textContent=t;});
-  // tree graph (right) — nodes
+  // tree graph (right): nodes
   const N={
     app:[1060,150],src:[760,360],test:[1120,360],run:[1400,360],
     secret:[640,580],main:[880,580],t1:[1040,580],t2:[1220,580]
@@ -887,7 +887,7 @@ function bindControls(slideEl,ctrl){
   });
   const lead=slides[5].querySelector('#commit-step');
   const steps=[
-    {t:'Start: commit <b>C1</b> — a snapshot of the whole project (its tree).'},
+    {t:'Start: commit <b>C1</b> is a snapshot of the whole project (its tree).'},
     {t:'<b>C2</b> makes a new commit + a new tree, and points back to <b>C1</b> (its parent).'},
     {t:'<b>C3</b> again: new snapshot, parent = C2. A commit is the <b>full state</b>, chained to history.'}
   ];
@@ -921,7 +921,7 @@ function bindControls(slideEl,ctrl){
   const lead=slides[6].querySelector('#branch-step');
   const steps=[
     {bx:0,t:'One commit <b>A</b>. The branch <b>main</b> is just a pointer to it.'},
-    {bx:1,t:'Commit <b>B</b>. <b>main moves forward</b> to point at B — the commit A is unchanged.'},
+    {bx:1,t:'Commit <b>B</b>. <b>main moves forward</b> to point at B, and the commit A is unchanged.'},
     {bx:2,t:'Commit <b>C</b>. Again main advances. Commits are <b>immutable</b>; the branch is <b>mutable</b>.'},
     {bx:3,t:'Commit <b>D</b>. The branch is the cheap, readable name; the commits stay frozen behind it.'}
   ];
@@ -970,10 +970,10 @@ function bindControls(slideEl,ctrl){
   pMain.move(X.C); pNB.move(X.C); pHot.move(Xbot.F);
   const lead=slides[8].querySelector('#merge-step');
 
-  // step definitions — cumulative visibility + pointer positions
+  // step definitions: cumulative visibility + pointer positions
   const steps=[
-    {show:['A','B','C','AB','BC'],main:X.C,t:'Production lives on <b>main</b> (A→B→C). We want a new button — without breaking production.'},
-    {show:['D','CD'],main:X.C,nb:X.C,t:'We branch <b>new-button</b> off C — its pointer sits on C. main is untouched.'},
+    {show:['A','B','C','AB','BC'],main:X.C,t:'Production lives on <b>main</b> (A→B→C). We want a new button, without breaking production.'},
+    {show:['D','CD'],main:X.C,nb:X.C,t:'We branch <b>new-button</b> off C, so its pointer sits on C. main is untouched.'},
     {show:[],main:X.C,nb:Xtop.D,t:'Commit <b>D</b> on new-button → its pointer <b>moves to D</b>. main stays on C.'},
     {show:['E','DE'],main:X.C,nb:Xtop.E,t:'Commit <b>E</b> → new-button moves again to E. main is still safely on C.'},
     {show:[],main:Xtop.E,nb:Xtop.E,t:'Feature ready → <b>git merge</b>. main had not moved, so this is a <b>fast-forward</b>: main slides up to E. ✅'},
@@ -1025,8 +1025,8 @@ function bindControls(slideEl,ctrl){
     {show:['A','B','C','AB','BC','D','CD'],main:Xd.D,feat:false,feat2:false,t:'<b>main</b> is at D. We branched <b>feature</b> earlier at C…'},
     {show:['E','F','CE','EF'],main:Xd.D,feat:true,feat2:false,t:'…and made commits <b>E</b> and <b>F</b> on it. History has diverged.'},
     {show:['E2','DE2'],main:Xd.D,feat:true,feat2:false,t:'<b>git rebase main</b>: take the feature commits after C and re-apply them onto D. E → <b>E\'</b> (a brand-new commit).'},
-    {show:['F2','E2F2'],main:Xd.D,feat:true,feat2:true,t:'F → <b>F\'</b>. Same changes, new commits. <b>No merge commit</b> — history is now <b>linear</b>.'},
-    {show:[],main:Xd.F2,feat:true,feat2:true,t:'<b>git merge feature</b> now fast-forwards main to F\'. Clean, linear history — what many teams prefer.'}
+    {show:['F2','E2F2'],main:Xd.D,feat:true,feat2:true,t:'F → <b>F\'</b>. Same changes, new commits. <b>No merge commit</b>, and history is now <b>linear</b>.'},
+    {show:[],main:Xd.F2,feat:true,feat2:true,t:'<b>git merge feature</b> now fast-forwards main to F\'. Clean, linear history, what many teams prefer.'}
   ];
   function apply(s){
     const onset=new Set(); for(let i=0;i<=s;i++)steps[i].show.forEach(k=>onset.add(k));
@@ -1072,9 +1072,9 @@ function bindControls(slideEl,ctrl){
 
   const lead=slides[10].querySelector('#cherry-step');
   const steps=[
-    {show:['A','B','C','D','AB','BC','CD'],main:Xtop.D,feat:false,tag:false,t:'<b>main</b>: A→B→C→D — our production line.'},
+    {show:['A','B','C','D','AB','BC','CD'],main:Xtop.D,feat:false,tag:false,t:'<b>main</b>: A→B→C→D is our production line.'},
     {show:['E','F','CE','EF'],main:Xtop.D,feat:true,tag:false,t:'A <b>feature</b> branch off C has commits E and F. The feature isn\'t finished…'},
-    {show:[],main:Xtop.D,feat:true,tag:true,t:'…but commit <b>F</b> alone is a self-contained fix we want on main <b>now</b> — without bringing E along.'},
+    {show:[],main:Xtop.D,feat:true,tag:true,t:'…but commit <b>F</b> alone is a self-contained fix we want on main <b>now</b>, without bringing E along.'},
     {show:['Fp','DFp'],copy:true,main:Xtop.Fp,feat:true,tag:true,t:'<b>git cherry-pick F</b> copies just F\'s change onto the tip of main → a new commit <b>F\'</b>.'},
     {show:['Fp','DFp'],copy:true,main:Xtop.Fp,feat:true,tag:true,t:'Done. main has the fix; <b>feature is untouched</b> and keeps its own history. One commit, copied cleanly. ✅'}
   ];
@@ -1111,7 +1111,7 @@ function bindControls(slideEl,ctrl){
   const pMain=movingPtr(svg,'main',topY,false);
   const pFeat=movingPtr(svg,'feature',botY,true);
   pMain.move(X.C); pFeat.move(Xf.D);
-  // HEAD pointer (amber) — can jump to either line, so it gets its own builder.
+  // HEAD pointer (amber) can jump to either line, so it gets its own builder.
   const head=(function(){
     const amber='#f0a85a',boxW=120,boxH=42;
     const g=el('g',{class:'vshow'},svg);
@@ -1132,10 +1132,10 @@ function bindControls(slideEl,ctrl){
   })();
   const lead=slides[7].querySelector('#head-step');
   const steps=[
-    {show:['A','B','C','AB','BC'],main:X.C,feat:false,headAt:X.C,headY:topY,t:'<b>main</b> points at C. <b>HEAD</b> points at <b>main</b> — that\'s "where you are". A commit here moves <i>both</i> forward together.'},
-    {show:['D','BD'],main:X.C,feat:true,headAt:X.C,headY:topY,t:'We branch <b>feature</b> at B and commit <b>D</b>. But HEAD is still on main — your working tree still shows C.'},
+    {show:['A','B','C','AB','BC'],main:X.C,feat:false,headAt:X.C,headY:topY,t:'<b>main</b> points at C. <b>HEAD</b> points at <b>main</b>, that\'s "where you are". A commit here moves <i>both</i> forward together.'},
+    {show:['D','BD'],main:X.C,feat:true,headAt:X.C,headY:topY,t:'We branch <b>feature</b> at B and commit <b>D</b>. But HEAD is still on main, so your working tree still shows C.'},
     {show:[],main:X.C,feat:true,headAt:Xf.D,headY:botY,t:'<b>git switch feature</b> → HEAD detaches from main and re-attaches to <b>feature</b>. Now you\'re on D.'},
-    {show:[],main:X.C,feat:true,headAt:Xf.D,headY:botY,t:'HEAD is the answer to "what does the next commit attach to?" — it follows you as you <span class="mono">switch</span> between branches.'}
+    {show:[],main:X.C,feat:true,headAt:Xf.D,headY:botY,t:'HEAD is the answer to "what does the next commit attach to?". It follows you as you <span class="mono">switch</span> between branches.'}
   ];
   function apply(s){
     const onset=new Set(); for(let i=0;i<=s;i++)steps[i].show.forEach(k=>onset.add(k));
@@ -1180,8 +1180,8 @@ function bindControls(slideEl,ctrl){
   const fPull=flow(580,-1,'git pull  ←  bring their commits down','peri');
   const lead=slides[11].querySelector('#remote-step');
   const steps=[
-    {show:[local],t:'Your repo on <b>your machine</b> — a complete copy of the history. You can commit, branch, and work fully <b>offline</b>.'},
-    {show:[remote],t:'A <b>remote</b> — usually called <span class="mono">origin</span> — is just another copy of the same repo, on a shared server (GitHub, GitLab…).'},
+    {show:[local],t:'Your repo on <b>your machine</b> is a complete copy of the history. You can commit, branch, and work fully <b>offline</b>.'},
+    {show:[remote],t:'A <b>remote</b> (usually called <span class="mono">origin</span>) is just another copy of the same repo, on a shared server (GitHub, GitLab…).'},
     {show:[fClone],t:'<span class="mono">git clone</span> made your copy in the first place: it pulls down the <b>entire history</b>, not just the latest files.'},
     {show:[fPush],t:'<span class="mono">git push</span> sends <i>your</i> new commits up to origin so teammates can get them.'},
     {show:[fPull],t:'<span class="mono">git pull</span> brings <i>their</i> new commits down to you. We use push/pull for real in later labs.'}
