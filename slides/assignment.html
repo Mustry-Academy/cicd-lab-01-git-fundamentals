@@ -532,7 +532,7 @@ git commit -m <span class="cmd2">"…"</span>         <span class="cm"># …×3<
       <div class="steps">
         <div class="step"><div class="ix p">4</div><div class="tx">From Part A, <span class="inlinecode">feature/greeting-tweaks</span> is <b>three commits ahead</b>; <span class="inlinecode">main</span> still sits at your README commit.</div></div>
         <div class="step"><div class="ix p">5</div><div class="tx">Put one small <b>unrelated</b> commit on <span class="inlinecode">main</span> (edit a file the seed didn't touch, e.g. the root <span class="inlinecode">README.md</span>). Now the branches have <b>diverged</b>, so a fast-forward is impossible.</div></div>
-        <div class="step"><div class="ix p">6</div><div class="tx"><span class="inlinecode">git merge feature/greeting-tweaks</span>. Git can't fast-forward, so it records a <b>merge commit</b>.</div></div>
+        <div class="step"><div class="ix p">6</div><div class="tx"><span class="inlinecode">git merge feature/greeting-tweaks -m "…"</span>. Git can't fast-forward, so it records a <b>merge commit</b>. Passing <span class="inlinecode">-m</span> supplies its message inline, so no editor pops open.</div></div>
         <div class="step"><div class="ix p">7</div><div class="tx"><span class="inlinecode">git cat-file -p HEAD</span> → it lists <b>two parents</b>. <span class="inlinecode">git log --graph</span> shows the diamond where the branches rejoin.</div></div>
       </div>
       <div>
@@ -540,7 +540,7 @@ git commit -m <span class="cmd2">"…"</span>         <span class="cm"># …×3<
 <span class="cm"># edit the root README.md, then commit:</span>
 git commit -am <span class="cmd2">"chore: unrelated note on main"</span>
 
-git merge feature/greeting-tweaks    <span class="cm"># → merge commit</span>
+git merge feature/greeting-tweaks -m <span class="cmd2">"Merge feature/greeting-tweaks"</span>   <span class="cm"># → merge commit</span>
 git cat-file -p HEAD                  <span class="cm"># two parents!</span>
 git log --graph --decorate --oneline --all</pre></div>
         <div class="goal good-g" style="margin-top:16px">
