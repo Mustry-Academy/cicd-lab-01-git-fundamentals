@@ -537,8 +537,9 @@ git commit -m <span class="cmd2">"…"</span>         <span class="cm"># …×3<
       </div>
       <div>
         <div class="code"><pre>git switch main
-<span class="cm"># edit the root README.md, then commit:</span>
-git commit -am <span class="cmd2">"chore: unrelated note on main"</span>
+<span class="cm"># edit the root README.md, then stage &amp; commit:</span>
+git add README.md
+git commit -m <span class="cmd2">"chore: unrelated note on main"</span>
 
 git merge feature/greeting-tweaks -m <span class="cmd2">"Merge feature/greeting-tweaks"</span>   <span class="cm"># → merge commit</span>
 git cat-file -p HEAD                  <span class="cm"># two parents!</span>
@@ -570,7 +571,8 @@ git log --graph --decorate --oneline --all</pre></div>
       </div>
       <div class="code"><pre>git switch main &amp;&amp; git reset --hard BASE
 <span class="cm"># redo the note: edit root README.md again, then</span>
-git commit -am <span class="cmd2">"chore: unrelated note on main"</span>
+git add README.md
+git commit -m <span class="cmd2">"chore: unrelated note on main"</span>
 
 git switch feature/greeting-tweaks
 git rebase main            <span class="cm"># new SHAs!</span>
