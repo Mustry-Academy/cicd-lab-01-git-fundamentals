@@ -488,7 +488,7 @@ scripts/verify-lab.sh   <span class="cm"># → ✅</span></pre></div>
     <div class="sechead"><span class="num phase2">PART A</span><div><div class="title">Three clean commits</div><div class="lead">One change per commit. Imagine a reviewer skimming them in 30 seconds.</div></div></div>
     <div class="goal good-g" style="margin-top:0;margin-bottom:18px">
       <span class="badge">First · baseline</span>
-      <p>Before you branch, name your starting point: on <span class="inlinecode">main</span>, grab the current commit's <b>short SHA</b> and jot it down as <b>BASE</b>. In Parts B and C you'll <span class="inlinecode">git reset --hard BASE</span> to return here, so each workflow starts from the same clean history.</p>
+      <p>Before you branch, name your starting point: on <span class="inlinecode">main</span>, put a <b>tag</b> named <b>BASE</b> on the current commit. A tag stays put while <span class="inlinecode">main</span> moves, so in Parts B and C <span class="inlinecode">git reset --hard BASE</span> brings you back here and each workflow starts from the same clean history.</p>
     </div>
     <div class="cols2">
       <div class="steps">
@@ -497,9 +497,9 @@ scripts/verify-lab.sh   <span class="cm"># → ✅</span></pre></div>
         <div class="step"><div class="ix p">3</div><div class="tx"><span class="inlinecode">git add -p</span> → produce <b>three separate commits</b>, each with <b>one</b> change and a sensible message.</div></div>
       </div>
       <div>
-        <div class="code"><pre><span class="cm"># record your baseline first</span>
+        <div class="code"><pre><span class="cm"># tag your baseline first</span>
 git switch main
-git rev-parse --short HEAD  <span class="cm"># note this → "BASE"</span>
+git tag BASE               <span class="cm"># a name that stays put</span>
 
 git switch -c feature/greeting-tweaks
 scripts/seed-messy-state.sh

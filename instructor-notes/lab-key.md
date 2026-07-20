@@ -99,8 +99,13 @@ fast-forward — Git produces a merge commit:
 | * refactor(app): add docstring to greet()
 * | chore: unrelated note on main
 |/
-* BASE (= the Phase 1 focused commit)
+* (tag: BASE) <the Phase 1 focused commit>
 ```
+
+**BASE is a real tag** (created with `git tag BASE` at the top of Phase 2), so it shows up as
+`tag: BASE` in every decorated log — a quick way to spot a student who skipped the baseline step:
+no `tag: BASE` decoration means their later `git reset --hard BASE` will fail with
+"ambiguous argument 'BASE'".
 
 **The two-parent check (step 7):** `git cat-file -p HEAD` on the merge commit prints **two `parent` lines** — one for the previous `main` tip, one for `feature/greeting-tweaks`. This is the concrete payoff of the teaching deck's three-way-merge slide ("a merge commit with two parents"). A fast-forward, by contrast, produces *no* new commit at all — so there's nothing with two parents to inspect. If a student sees only one parent, they fast-forwarded by accident (`main` hadn't actually moved — they skipped step 5).
 
@@ -127,7 +132,7 @@ After Part C, `git log --graph --decorate --oneline` should show a **linear** hi
 * docs: document how to run the sample app
 * refactor(app): add docstring to greet()
 * chore: unrelated note on main
-* (BASE) <the Phase 1 focused commit>
+* (tag: BASE) <the Phase 1 focused commit>
 ```
 
 No merge commit. No diverging branch. `main` and `feature/greeting-tweaks` point to the same commit.

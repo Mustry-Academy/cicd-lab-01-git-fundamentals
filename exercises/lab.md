@@ -253,12 +253,13 @@ Jot each answer in `NOTES.local.md` as you go.
 
 ### Phase 2 — branch, merge, and rebase
 
-Record your baseline now — `main` already includes your Phase 1 commit, and you'll reset
-back here a few times:
+Tag your baseline now — `main` already includes your Phase 1 commit, and you'll reset
+back here a few times. A tag stays put while `main` moves, so `git reset --hard BASE`
+always brings you back to this exact commit:
 
 ```bash
 git switch main
-git rev-parse --short HEAD    # note this SHA — the instructions call it BASE
+git tag BASE    # a name that stays put while main moves
 ```
 
 **Part A — three clean commits.**
