@@ -566,12 +566,12 @@ git log --graph --decorate --oneline --all</pre></div>
     <div class="sechead"><span class="num phase2">PART C</span><div><div class="title">Linear rebase</div><div class="lead">The rebase slide, for real: feature commits get <b>new SHAs</b> on top of main.</div></div></div>
     <div class="cols2">
       <div class="steps">
-        <div class="step"><div class="ix p">9</div><div class="tx">Reset once more: <span class="inlinecode">git switch main &amp;&amp; git reset --hard BASE</span>. This drops Part B's merge <b>and</b> its note commit. <b>Redo the note commit</b> so <span class="inlinecode">main</span> is ahead of the fork point again; without it, the rebase has nothing to do.</div></div>
+        <div class="step"><div class="ix p">9</div><div class="tx">Reset once more — you're still on <span class="inlinecode">main</span> from Part B: <span class="inlinecode">git reset --hard BASE</span>. This drops Part B's merge <b>and</b> its note commit. <b>Redo the note commit</b> so <span class="inlinecode">main</span> is ahead of the fork point again; without it, the rebase has nothing to do.</div></div>
         <div class="step"><div class="ix p">10</div><div class="tx"><span class="inlinecode">git switch feature/greeting-tweaks &amp;&amp; git rebase main</span>. The three commits land on the new tip, <b>no merge commit</b>. Notice the <b>new SHAs</b>.</div></div>
         <div class="step"><div class="ix p">11</div><div class="tx"><span class="inlinecode">git switch main &amp;&amp; git merge feature/greeting-tweaks</span>. This <b>fast-forwards</b>. Linear history.</div></div>
         <div class="step"><div class="ix p">12</div><div class="tx">Compare your final graph to <span class="inlinecode">instructor-notes/lab-key.md</span>. <b>Don't peek before you finish.</b></div></div>
       </div>
-      <div class="code"><pre>git switch main &amp;&amp; git reset --hard BASE
+      <div class="code"><pre>git reset --hard BASE      <span class="cm"># still on main from Part B</span>
 <span class="cm"># redo the note: append to docs/why-version-control.md again, then</span>
 git add docs/why-version-control.md
 git commit -m <span class="cmd2">"chore: unrelated note on main"</span>

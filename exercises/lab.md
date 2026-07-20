@@ -278,7 +278,7 @@ git tag BASE    # a name that stays put while main moves
 
 **Part C — linear rebase.**
 
-9. Reset once more: `git switch main && git reset --hard BASE` — this drops Part B's merge **and** its note commit. Then **redo the note commit** (append another line to `docs/why-version-control.md`, `git commit -am "chore: unrelated note on main"`) so `main` is ahead of the feature branch's fork point — without it, the rebase has nothing to do.
+9. Reset once more — you're still on `main` from Part B: `git reset --hard BASE` — this drops Part B's merge **and** its note commit. Then **redo the note commit** (append another line to `docs/why-version-control.md`, `git commit -am "chore: unrelated note on main"`) so `main` is ahead of the feature branch's fork point — without it, the rebase has nothing to do.
 10. `git switch feature/greeting-tweaks && git rebase main`. The three feature commits should now sit on top of the new `main` tip, with no merge commit. (Notice the feature commits got **new SHAs** — rebase rewrote them.)
 11. `git switch main && git merge feature/greeting-tweaks` — this *will* fast-forward. The history is linear.
 12. Compare your final `git log --graph --decorate --oneline --all` to the reference walk-through in [`instructor-notes/lab-key.md`](../instructor-notes/lab-key.md). Don't peek before you've finished Part C.
