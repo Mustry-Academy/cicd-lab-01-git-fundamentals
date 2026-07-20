@@ -197,8 +197,8 @@ body{
 .pnode text.nm{fill:#d8c9a0;font-family:'IBM Plex Mono';font-size:11px}
 .envchip rect{fill:rgba(126,148,97,.14);stroke:#a9bd8f;stroke-width:1.6}
 .envchip text{fill:#dfe8d4;font-family:'IBM Plex Mono';font-size:13px;font-weight:600;text-anchor:middle;dominant-baseline:central}
-.envchip.prd rect{fill:rgba(200,144,47,.18);stroke:var(--oat-gold-l)}
-.envchip.prd text{fill:var(--oat-gold-l)}
+.envchip.production rect{fill:rgba(200,144,47,.18);stroke:var(--oat-gold-l)}
+.envchip.production text{fill:var(--oat-gold-l)}
 .link{stroke:#C8902F;stroke-width:2.2;fill:none}
 .fanl{stroke:#4ade80;stroke-width:1.7;fill:none;opacity:.8}
 .sneaker{stroke:#ef6f6f;stroke-width:2.2;fill:none;stroke-dasharray:6 7}
@@ -1008,10 +1008,10 @@ function buildWorld(mountId){
 
   /* environment ladder + vault */
   const lad=el('g',{class:'vshow'},svg);
-  const ENVY={local:120,dev:265,test:410,prod:555};
+  const ENVY={local:120,test:265,staging:410,production:555};
   Object.keys(ENVY).forEach(k=>{
     const y=ENVY[k];
-    const g=el('g',{class:'envchip'+(k==='prod'?' prd':'')},lad);
+    const g=el('g',{class:'envchip'+(k==='production'?' production':'')},lad);
     el('rect',{x:490,y:y,width:130,height:50,rx:12},g);
     txt({x:555,y:y+26},g,k);
   });
@@ -1027,7 +1027,7 @@ function buildWorld(mountId){
   txt({class:'ns',x:524,y:681,'font-size':11},va,'per environment');
   parts.vault=va;
 
-  /* fan-out from prod to all 8 sites */
+  /* fan-out from production to all 8 sites */
   const fan=el('g',{class:'vshow'},svg);
   for(let n=1;n<=8;n++){
     const c=siteCenter(n);
@@ -1146,7 +1146,7 @@ controllers.pains=htmlCtrl(4,'pains-step',[
   'Deploys happen when someone drives to the site.',
   'Same project, different behavior, no way to compare.',
   'Changes have no author, no reason, no way back.',
-  'There is no staging. There is only prod.',
+  'There is no staging. There is only production.',
   "And everything depends on one person's memory.",
   'This is the diagnosis. The cure takes four days.'
 ]);
@@ -1235,7 +1235,7 @@ controllers.day3=worldCtrl('viz-day3','day3-step',DAY3_BASE,[
 const DAY4_BASE=DAY3_BASE.concat(['art','routes','sidecars']);
 controllers.day4=worldCtrl('viz-day4','day4-step',DAY4_BASE,[
   {badges:'day3',t:'One site is not a rollout.'},
-  {add:['ladder'],t:'Day 4: changes climb an environment ladder. local, dev, test, prod. Production is the last rung, not the first.'},
+  {add:['ladder'],t:'Day 4: changes climb an environment ladder. local, test, staging, production. Production is the last rung, not the first.'},
   {add:['vault'],t:'Each environment keeps its own credentials. None of them live in Git.'},
   {add:['fan'],badges:'final',badgeOpts:{stagger:120},t:'One promotion, eight identical sites.'},
   {t:'And then you run the whole map yourself, end to end. That is Lab 08, the capstone.'}
