@@ -83,10 +83,11 @@ If a student lumps everything into a single commit, push them back to redo with 
 
 ### Part B — a real merge commit
 
-The unrelated commit (step 5) must touch a file the seed **didn't** — the instructions say the root
-`README.md`. If a student edits `sample-app/README.md` instead, the seed's "Run me" commit appends
-to the same file end and Part C's rebase will hit a conflict they weren't meant to see yet (that's
-Stretch 1's job).
+The unrelated commit (step 5) must touch a file the seed **didn't** — the instructions say
+`docs/why-version-control.md`, deliberately far away from both READMEs so nobody mixes it up with
+the Phase 1 commit. If a student edits `sample-app/README.md` instead, the seed's "Run me" commit
+appends to the same file end and Part C's rebase will hit a conflict they weren't meant to see yet
+(that's Stretch 1's job).
 
 **Expected graph after the merge (steps 6–7):** `main` has moved, so a plain `git merge` cannot
 fast-forward — Git produces a merge commit:

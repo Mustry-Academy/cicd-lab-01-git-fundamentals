@@ -271,14 +271,14 @@ git tag BASE    # a name that stays put while main moves
 **Part B — a real merge commit.**
 
 4. From Part A, `feature/greeting-tweaks` is **three commits ahead**; `main` still sits at your Phase 1 commit.
-5. Put one small **unrelated** commit directly on `main` — edit a file the seed didn't touch, e.g. the root `README.md`, then `git commit -am "chore: unrelated note on main"`. Now the branches have **diverged**, so a fast-forward is impossible.
+5. Put one small **unrelated** commit directly on `main` — append a line to `docs/why-version-control.md` (a file neither Phase 1 nor the seed touches), then `git commit -am "chore: unrelated note on main"`. Now the branches have **diverged**, so a fast-forward is impossible.
 6. `git merge feature/greeting-tweaks` — Git can't fast-forward, so it records a **merge commit**.
 7. `git cat-file -p HEAD` and **count the `parent` lines: two** — your own three-way merge commit from the slide. `git log --graph --decorate --oneline --all` shows the diamond where the branches rejoin.
 8. **Sketch the graph in `NOTES.local.md` and keep it** — in Part C you'll fold in the same feature work with a *linear* history instead.
 
 **Part C — linear rebase.**
 
-9. Reset once more: `git switch main && git reset --hard BASE` — this drops Part B's merge **and** its note commit. Then **redo the note commit** (edit the root `README.md` again, `git commit -am "chore: unrelated note on main"`) so `main` is ahead of the feature branch's fork point — without it, the rebase has nothing to do.
+9. Reset once more: `git switch main && git reset --hard BASE` — this drops Part B's merge **and** its note commit. Then **redo the note commit** (append another line to `docs/why-version-control.md`, `git commit -am "chore: unrelated note on main"`) so `main` is ahead of the feature branch's fork point — without it, the rebase has nothing to do.
 10. `git switch feature/greeting-tweaks && git rebase main`. The three feature commits should now sit on top of the new `main` tip, with no merge commit. (Notice the feature commits got **new SHAs** — rebase rewrote them.)
 11. `git switch main && git merge feature/greeting-tweaks` — this *will* fast-forward. The history is linear.
 12. Compare your final `git log --graph --decorate --oneline --all` to the reference walk-through in [`instructor-notes/lab-key.md`](../instructor-notes/lab-key.md). Don't peek before you've finished Part C.

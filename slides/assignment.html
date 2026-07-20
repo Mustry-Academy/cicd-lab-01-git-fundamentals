@@ -533,14 +533,14 @@ git commit -m <span class="cmd2">"…"</span>         <span class="cm"># …×3<
     <div class="cols2">
       <div class="steps">
         <div class="step"><div class="ix p">4</div><div class="tx">From Part A, <span class="inlinecode">feature/greeting-tweaks</span> is <b>three commits ahead</b>; <span class="inlinecode">main</span> still sits at your README commit.</div></div>
-        <div class="step"><div class="ix p">5</div><div class="tx">Put one small <b>unrelated</b> commit on <span class="inlinecode">main</span> (edit a file the seed didn't touch, e.g. the root <span class="inlinecode">README.md</span>). Now the branches have <b>diverged</b>, so a fast-forward is impossible.</div></div>
+        <div class="step"><div class="ix p">5</div><div class="tx">Put one small <b>unrelated</b> commit on <span class="inlinecode">main</span>: append a line to <span class="inlinecode">docs/why-version-control.md</span>, a file neither Phase 1 nor the seed touches. Now the branches have <b>diverged</b>, so a fast-forward is impossible.</div></div>
         <div class="step"><div class="ix p">6</div><div class="tx"><span class="inlinecode">git merge feature/greeting-tweaks -m "…"</span>. Git can't fast-forward, so it records a <b>merge commit</b>. Passing <span class="inlinecode">-m</span> supplies its message inline, so no editor pops open.</div></div>
         <div class="step"><div class="ix p">7</div><div class="tx"><span class="inlinecode">git cat-file -p HEAD</span> → it lists <b>two parents</b>. <span class="inlinecode">git log --graph</span> shows the diamond where the branches rejoin.</div></div>
       </div>
       <div>
         <div class="code"><pre>git switch main
-<span class="cm"># edit the root README.md, then stage &amp; commit:</span>
-git add README.md
+<span class="cm"># append a line to docs/why-version-control.md, then:</span>
+git add docs/why-version-control.md
 git commit -m <span class="cmd2">"chore: unrelated note on main"</span>
 
 git merge feature/greeting-tweaks -m <span class="cmd2">"Merge feature/greeting-tweaks"</span>   <span class="cm"># → merge commit</span>
@@ -572,8 +572,8 @@ git log --graph --decorate --oneline --all</pre></div>
         <div class="step"><div class="ix p">12</div><div class="tx">Compare your final graph to <span class="inlinecode">instructor-notes/lab-key.md</span>. <b>Don't peek before you finish.</b></div></div>
       </div>
       <div class="code"><pre>git switch main &amp;&amp; git reset --hard BASE
-<span class="cm"># redo the note: edit root README.md again, then</span>
-git add README.md
+<span class="cm"># redo the note: append to docs/why-version-control.md again, then</span>
+git add docs/why-version-control.md
 git commit -m <span class="cmd2">"chore: unrelated note on main"</span>
 
 git switch feature/greeting-tweaks
