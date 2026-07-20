@@ -26,7 +26,10 @@ pip install -r sample-app/requirements.txt
 pytest sample-app/tests
 ```
 
-> **WSL2:** keep the folder in your Linux home (`~/…`), not `/mnt/c/…` — Git is far slower across the Windows boundary and line endings get messy.
+> **WSL2 (Windows): keep the folder in your Linux home (`~/…`), never `/mnt/c/…`.**
+> Git is far slower across the Windows boundary, line endings get messy, and from
+> Lab 02 onwards the Docker labs break outright on `/mnt/c` because file ownership
+> cannot be made to stick there. Start on the Linux side now and every later lab works.
 
 ## Lab structure
 
