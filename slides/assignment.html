@@ -434,12 +434,13 @@ git log -p -L :farewell:sample-app/app.py</pre></div>
     <div class="sechead"><span class="num p">PHASE 1 · 5-7</span><div><div class="title">Make a focused commit, then check the gate</div></div></div>
     <div class="cols2">
       <div class="steps">
-        <div class="step"><div class="ix p">5</div><div class="tx">Add your name to <span class="inlinecode">sample-app/README.md</span> as a <b>"lab participant"</b> line. Commit it with a clear message.</div></div>
+        <div class="step"><div class="ix p">5</div><div class="tx">Add a line to <span class="inlinecode">sample-app/README.md</span> that contains the <b>literal words "lab participant"</b> plus your name, e.g. <span class="inlinecode">Lab participant: Ada Lovelace</span> — the gate script greps for those exact words. Commit it with a clear message.</div></div>
         <div class="step"><div class="ix p">6</div><div class="tx">Compare <span class="inlinecode">git ls-tree HEAD~1 sample-app/</span> with <span class="inlinecode">git ls-tree HEAD sample-app/</span> → confirm <b>only the README blob SHA changed</b>, not <span class="inlinecode">app.py</span>, not the <span class="inlinecode">tests/</span> tree.</div></div>
         <div class="step"><div class="ix p">7</div><div class="tx">Run <span class="inlinecode">scripts/verify-lab.sh</span>. It must print a green ✅. <b>Run it now, before Phase 2.</b></div></div>
       </div>
       <div>
         <div class="code"><pre><span class="cm"># step 5: one clean, isolated commit</span>
+echo <span class="cmd2">"Lab participant: &lt;your name&gt;"</span> &gt;&gt; sample-app/README.md
 git add sample-app/README.md
 git commit -m <span class="cmd2">"docs: add lab participant"</span>
 

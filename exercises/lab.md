@@ -247,7 +247,7 @@ Jot each answer in `NOTES.local.md` as you go.
 
 **Focused commit + gate (5–7)**
 
-5. **Make a focused commit.** Add your name to `sample-app/README.md` as a "lab participant" line. Commit it with a clear message.
+5. **Make a focused commit.** Add a line to `sample-app/README.md` that contains the **literal words "lab participant"** plus your name, e.g. `Lab participant: Ada Lovelace` — the Phase 1 gate script greps for those exact words. Commit it with a clear message.
 6. Prove that **only the `README.md` blob changed**: compare `git ls-tree HEAD~1 sample-app/` with `git ls-tree HEAD sample-app/` — the `README.md` blob SHA differs, and every other entry (the `app.py` blob, the `tests/` tree) is identical.
 7. **The gate.** Run `scripts/verify-lab.sh` — it should print all-green ✅. Run this **now**, before Phase 2: Phase 2 rewrites history, and the "HEAD touched only README" check no longer holds afterwards.
 
