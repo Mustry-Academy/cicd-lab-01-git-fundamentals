@@ -1046,8 +1046,8 @@ function bindControls(slideEl,ctrl){
     {show:['A','B','C','AB','BC','D','CD'],main:Xd.D,feat:false,feat2:false,t:'<b>main</b> is at D. We branched <b>feature</b> earlier at C…'},
     {show:['E','F','CE','EF'],main:Xd.D,feat:true,feat2:false,t:'…and made commits <b>E</b> and <b>F</b> on it. History has diverged.'},
     {show:['E2','DE2'],main:Xd.D,feat:true,feat2:false,t:'<b>git rebase main</b>: take the feature commits after C and re-apply them onto D. E → <b>E\'</b> (a brand-new commit).'},
-    {show:['F2','E2F2'],main:Xd.D,feat:true,feat2:true,t:'F → <b>F\'</b>. Same changes, new commits. <b>No merge commit</b>, and history is now <b>linear</b>.'},
-    {show:[],main:Xd.F2,feat:true,feat2:true,t:'<b>git merge feature</b> now fast-forwards main to F\'. Clean, linear history, what many teams prefer.'}
+    {show:['F2','E2F2'],main:Xd.D,feat:false,feat2:true,t:'F → <b>F\'</b>. Same changes, new commits. <b>No merge commit</b>, and history is now <b>linear</b>.'},
+    {show:[],main:Xd.F2,feat:false,feat2:true,t:'<b>git merge feature</b> now fast-forwards main to F\'. Clean, linear history, what many teams prefer.'}
   ];
   function apply(s){
     const onset=new Set(); for(let i=0;i<=s;i++)steps[i].show.forEach(k=>onset.add(k));
