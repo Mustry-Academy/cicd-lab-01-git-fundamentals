@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> **This repository has moved and is read-only.** The CI/CD for Ignition course now lives in one repo: [Mustry-Academy/cicd-for-ignition](https://github.com/Mustry-Academy/cicd-for-ignition), in [`labs/01-git-fundamentals/`](https://github.com/Mustry-Academy/cicd-for-ignition/tree/main/labs/01-git-fundamentals). This repo will be deleted after 14 December 2026.
+
 # Lab 01 — Git Fundamentals
 
 Day 1 of the *CI/CD for Ignition* masterclass.
